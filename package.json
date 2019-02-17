@@ -1,0 +1,13 @@
+{
+  "name": "sicp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "lumo": "lumo",
+    "build": "lumo -c src build.cljs"
+  },
+  "dependencies": {
+    "lumo-cljs": "^1.9.0"
+  }
+}
