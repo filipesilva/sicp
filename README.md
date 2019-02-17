@@ -5,13 +5,16 @@ This is my working environment for working through
 in ClojureScript and JavaScript (when possible).
 
 It uses [Lumo](https://github.com/anmonteiro/lumo) as the ClojureScript (CLJS) environment.
-Run the local version using `yarn lumo` or install it globally from the `lumo-cljs` package.
+Run a local version using `npx lumo` after `npm i`, or install it globally via `npm i -g lumo-cljs`.
+[NodeJS](https://nodejs.org/en/) is used for the JavaScript environment. 
 
-Running `lumo` with no arguments starts the REPL.
-Add the `#!/usr/bin/env lumo` hashbang to a .cljs file to run it as an executable, which is the 
-same as `lumo file.cljs`.
-Load a file into the REPL via `lumo -i file.cljs -r`.
-Build the `./scratch.cljs` file into runnable JS with `lumo -c src build.cljs` or `yarn build`.
+Ways to run code:
+- Running `lumo`/`node` with no arguments starts the REPL.
+- Add the `#!/usr/bin/env lumo` (or `node`) hashbang to a file to run it as an executable, which is
+the same as `lumo ./file.cljs`/`node ./file.js`.
+- Load a file into the CLJS REPL via `lumo -i ./file.cljs -r` or `(load-file "./file.js")` while
+running. The Node REPL only allows `.load file.js` while running, but errors out with hashbangs.
+- Build the `./scratch.cljs` file into runnable JS with `lumo -c src build.cljs` or `npx build`.
 
 CLJS resources:
 - docs: http://clojuredocs.org/, https://clojure.org/reference/reader
