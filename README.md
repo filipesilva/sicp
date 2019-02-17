@@ -2,7 +2,7 @@
 
 This is my working environment for working through 
 [Structure and Interpretation of Computer Programs](https://en.wikipedia.org/wiki/Structure_and_Interpretation_of_Computer_Programs)
-in ClojureScript.
+in ClojureScript and JavaScript (when possible).
 
 It uses [Lumo](https://github.com/anmonteiro/lumo) as the ClojureScript (CLJS) environment.
 Run the local version using `yarn lumo` or install it globally from the `lumo-cljs` package.
