@@ -23,6 +23,7 @@ CLJS resources:
 - JS interop: https://github.com/anmonteiro/lumo/wiki/Invoke-node, 
 https://lambdaisland.com/episodes/clojurescript-interop
 - Lumo docs: https://github.com/anmonteiro/lumo/wiki/Cli-options
+- Style guide: https://github.com/bbatsov/clojure-style-guide
 
 ## Windows
 The Lumo REPL is [bugged on Windows](https://github.com/anmonteiro/lumo/issues/266) and exits after
