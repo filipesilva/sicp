@@ -39,7 +39,6 @@ console.log(
 );
 
 // 1.3
-
 // Return the sum of the squares of the to larger numbers.
 function squareSumLargerTwo(x, y, z) {
   return [x, y, z].sort().slice(1).map(x => x * x).reduce((acc, curr) => acc + curr, 0);
@@ -65,3 +64,15 @@ function test(x, y) {
 
 // RangeError: Maximum call stack size exceeded
 // console.log(test(0, p()));
+
+// 1.6
+// Not applicable because JS uses keywords and operators instead of special forms and you can't 
+// make new drop-in ones. Thus it wouldn't make sense to try and replace `if` in the first place.
+// We could make a `if` function and call that, and it would suffer from the same problem as the
+// Lisp implementation (eagerly evaluating the else expression).
+
+// 1.7
+// TODO
+
+// 1.8
+// TODO
