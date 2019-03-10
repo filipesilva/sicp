@@ -14,25 +14,25 @@
 (println (if (and (> a b) (< b (* a b))) a b));
 
 (println (cond (= a 4) 6
-                (= b 4) (+ 6 7 a)
-                :else 25))
+               (= b 4) (+ 6 7 a)
+               :else 25))
 
 (println (+ 2 (if (> b a) b a)))
 
 (println (* (cond (> a b) a
                   (< a b) b
                   :else -1)
-           (+ a 1)))
+            (+ a 1)))
 
 ; 1.2
 
-(println (/ 
-  (+ 5 4 (- 2 (- 3 (+ 6 (/4 5))))) 
-  (* 3 (- 6 2) (- 2 7))))
+(println (/
+          (+ 5 4 (- 2 (- 3 (+ 6 (/ 4 5)))))
+          (* 3 (- 6 2) (- 2 7))))
 
 ; 1.3
 
-(defn square-sum-larger-two 
+(defn square-sum-larger-two
   "Return the sum of the squares of the to larger numbers."
   [x, y, z]
   (reduce + (map #(* % %) (rest (sort [x y z])))))
@@ -50,7 +50,7 @@
 
 (defn p [] (p))
 
-(defn test 
+(defn test
   [x y]
   (if (= x 0) 0 y))
 
