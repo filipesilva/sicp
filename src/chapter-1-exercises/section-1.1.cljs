@@ -47,12 +47,12 @@
 ; 1.5
 (defn p [] (p))
 
-(defn test
+(defn test-fn
   [x y]
   (if (= x 0) 0 y))
 
 ; Maximum call stack size exceeded
-; (println (test 0 (p)))
+; (println (test-fn 0 (p)))
 
 ; 1.6
 (defn new-if
@@ -78,13 +78,20 @@
   [guess x]
   (average guess (/ x guess)))
 
-(defn good-enough? 
+(defn good-enough?
   [guess x]
   (< (abs (- (square guess) x)) 0.001))
 
 (defn sqrt-iter
   [guess x]
-  ; (if (good-enough? guess x)
+  (if (good-enough? guess x)
+    guess
+    (sqrt-iter (improve guess x)
+               x)))
+
+
+(defn sqrt-iter-new-if
+  [guess x]
   ; Using `new-if` causes a `Maximum call stack size exceeded` error.
   ; In `new-if`, the `else` is always evaluated because Lisp follows applicative-order evaluation.
   ; That's why `if` needs to be a special form: to prevent the else from being evaluated at all.
@@ -100,7 +107,48 @@
 (println (sqrt 9))
 
 ; 1.7
-; TODO
+; The criteria for good-enough is that the difference between x and the square of the guess
+; be less than 0.001. For small enough numbers, that will always be true after the first few
+; iterations over the initial guess.
+; Note: we can log the guesses using `(do stmt1 stmt2)`, as only stmt2 is returned.
+; The following roots are the mostly the same, each suffering exactly 5 iterations:
+
+(println (sqrt 0.000000000000000006)) ; 0.03125000000000006
+(println (sqrt 0.0000000000000000123)) ; 0.03125000000000013
+(println (sqrt 0.000000000000003)) ; 0.031250000000031974
+
+; For very large numbers, like the below, the test seems to recurse with the same guess for a
+; long time then crash the program
+; (println (sqrt 456091283091283)) ; crashes recursing with 21356293.758311227 guess
+; This happens because limited precision means improving over the guess can not return a different
+; value:
+(improve 21356293.758311227 456091283091283) ; also 21356293.758311227
 
 ; 1.8
-; TODO
+
+(defn cube
+  [x]
+  (* x x x))
+
+(defn good-enough-cube?
+  [guess x]
+  (< (abs (- (cube guess) x)) 0.001))
+
+(defn improve-cube
+  [guess x]
+  (/ (+ (/ x (square guess))
+        (* 2 guess))
+     3))
+
+(defn cbrt-iter
+  [guess x]
+  (if (good-enough-cube? guess x)
+    guess
+    (cbrt-iter (improve-cube guess x)
+               x)))
+
+(defn cbrt
+  [x]
+  (cbrt-iter 1.0 x))
+
+(println (cbrt 9))
