@@ -110,3 +110,15 @@ const anotherNewAdd = (a, b) =>
     : anotherNewAdd(--a, ++b);
 
 console.log(anotherNewAdd(4, 5));
+
+// 1.10
+// This is mostly a analysis question that isn't related to the language.
+// Below is Ackermans function, but the clojure version contains the analysis proper.
+const A = (x, y) => {
+  if (y == 0) { return 0; }
+  else if (x == 0) { return (2 * y); }
+  else if (y == 1) { return 2; }
+  else {
+    return A(x - 1, A(x, y - 1));
+  }
+}

@@ -188,3 +188,59 @@
 ; (+ 0 9)
 ; 9
 ; This process is iterative.
+
+; 1.10
+(defn A
+  "Ackermans function"
+  [x y]
+  (cond (= y 0) 0
+        (= x 0) (* 2 y)
+        (= y 1) 2
+        :else (A (- x 1)
+                 (A x (- y 1)))))
+
+(println (A 1 10))
+(println (A 2 4))
+(println (A 3 3))
+
+(defn k
+  "Computes 5n^2"
+  [n]
+  (* 5 n n))
+(println "k" (k 2))
+
+; (A 0 4) 
+; (* 2 4)
+(defn f
+  "Computes 2n"
+  [n]
+  (A 0 n))
+(println "f" (f 1) (f 2) (f 3) (f 4) (f 5) (f 6) (f 7))
+
+; (A 1 4)
+; (A 0 (A 1 3))
+; (A 0 (A 0 (A 1 2)))
+; (A 0 (A 0 (A 0 (A 1 1))))
+; (A 0 (A 0 (A 0 2))))
+; (A 0 (A 0 4))
+; (A 0 8)
+; 16
+(defn g
+  "Computes 2^n"
+  [n]
+  (A 1 n))
+(println "g" (g 1) (g 2) (g 3) (g 4) (g 5) (g 6) (g 7))
+
+; (A 2 4)
+; (A 1 (A 2 3))
+; (A 1 (A 1 (A 2 2)))
+; (A 1 (A 1 (A 1 (A 2 1))))
+; (A 1 (A 1 (A 1 2))))
+; (A 1 (A 1 4))
+; (A 1 16)
+; 65536
+(defn h
+  "Computes (2^)(repeat n times)1. e.g. (h 4) is 2^2^2^2^1."
+  [n]
+  (A 2 n))
+(println "h" (h 1) (h 2) (h 3) (h 4))
