@@ -92,3 +92,21 @@ const cbrtIter = (guess, x) =>
 const cbrt = x => cbrtIter(1.0, x);
 
 console.log(cbrt(9));
+
+// 1.9
+// Answers are the same as in the clojure version.
+// In JS we neither neither can redefine primitives like +, nor can + be a function name, so we
+// use the name `add` instead.
+const newAdd = (a, b) =>
+  a == 0
+    ? b
+    : newAdd(a - 1, b) + 1;
+
+console.log(newAdd(4, 5));
+
+const anotherNewAdd = (a, b) =>
+  a == 0
+    ? b
+    : anotherNewAdd(--a, ++b);
+
+console.log(anotherNewAdd(4, 5));
