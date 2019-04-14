@@ -226,7 +226,8 @@
 ; (A 0 8)
 ; 16
 (defn g
-  "Computes 2^n"
+  "Computes 2^n. 
+  Or: computes (2*)(repeat n times)1. e.g. (g 4) is 2*2*2*2*1."
   [n]
   (A 1 n))
 (println "g" (g 1) (g 2) (g 3) (g 4) (g 5) (g 6) (g 7))
