@@ -191,7 +191,9 @@
 
 ; 1.10
 (defn A
-  "Ackermans function"
+  "Ackermans function.
+  A(x y) calls `A(x-1 `2), where the part between ` is repeated y-1 times (with matching parens).
+  e.g A(x 4) is A(x-1 A(x-1 A(x-1 2)))."
   [x y]
   (cond (= y 0) 0
         (= x 0) (* 2 y)
@@ -215,7 +217,7 @@
   "Computes 2n"
   [n]
   (A 0 n))
-(println "f" (f 1) (f 2) (f 3) (f 4) (f 5) (f 6) (f 7))
+(println "f" (f 1) (f 2) (f 3) (f 4) (f 5) (f 6) (f 7)) ; f 2 4 6 8 10 12 14
 
 ; (A 1 4)
 ; (A 0 (A 1 3))
@@ -230,7 +232,7 @@
   Or: computes (2*)(repeat n times)1. e.g. (g 4) is 2*2*2*2*1."
   [n]
   (A 1 n))
-(println "g" (g 1) (g 2) (g 3) (g 4) (g 5) (g 6) (g 7))
+(println "g" (g 1) (g 2) (g 3) (g 4) (g 5) (g 6) (g 7)) ; prints g 2 4 8 16 32 64 128
 
 ; (A 2 4)
 ; (A 1 (A 2 3))
@@ -244,4 +246,4 @@
   "Computes (2^)(repeat n times)1. e.g. (h 4) is 2^2^2^2^1."
   [n]
   (A 2 n))
-(println "h" (h 1) (h 2) (h 3) (h 4))
+(println "h" (h 1) (h 2) (h 3) (h 4)) ; h 2 4 16 65536
