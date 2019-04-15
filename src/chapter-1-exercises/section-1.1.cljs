@@ -247,3 +247,30 @@
   [n]
   (A 2 n))
 (println "h" (h 1) (h 2) (h 3) (h 4)) ; h 2 4 16 65536
+
+
+; 1.11
+
+(defn fib-lookalive-recur
+  [n]
+  (if (< n 3)
+    n
+    (+ (fib-lookalive-recur (- n 1))
+       (* 2 (fib-lookalive-recur (- n 2)))
+       (* 3 (fib-lookalive-recur (- n 3))))))
+
+(println (fib-lookalive-recur 10))
+
+(defn fib-lookalive-iter
+  [n]
+  (defn fib-lookalive-iter-helper
+    [n-1 n-2 n-3 counter]
+    (if (= counter 0)
+      n-1
+      (fib-lookalive-iter-helper (+ n-1 (* 2 n-2) (* 3 n-3))
+                                 n-1
+                                 n-2
+                                 (dec counter))))
+  (fib-lookalive-iter-helper 2 1 0 (- n 2)))
+
+(println (fib-lookalive-iter 10))

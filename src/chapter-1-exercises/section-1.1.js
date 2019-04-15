@@ -122,3 +122,28 @@ const A = (x, y) => {
     return A(x - 1, A(x, y - 1));
   }
 }
+
+// 1.11
+
+const fibLookalikeRecur = n =>
+  n < 3
+    ? n
+    : fibLookalikeRecur(n - 1) + 2 * fibLookalikeRecur(n - 2) + 3 * fibLookalikeRecur(n - 3);
+
+console.log(fibLookalikeRecur(10));
+
+const fibLookalikeIter = n => {
+  const fibLookalikeIterHelper = (nMinus1, nMinus2, nMinus3, counter) =>
+    counter == 0
+      ? nMinus1
+      : fibLookalikeIterHelper(
+        nMinus1 + 2 * nMinus2 + 3 * nMinus3,
+        nMinus1,
+        nMinus2,
+        counter - 1
+      );
+
+  return fibLookalikeIterHelper(2, 1, 0, n - 2);
+}
+
+console.log(fibLookalikeIter(10));
