@@ -147,3 +147,23 @@ const fibLookalikeIter = n => {
 }
 
 console.log(fibLookalikeIter(10));
+
+// 1.12
+const pascalRecur = (line, column) => {
+  if (column == 0) {
+    return 1;
+  } else if (column == line) {
+    return 1;
+  } else if (column > line) {
+    return 0;
+  } else {
+    return pascalRecur(line - 1, column - 1) + pascalRecur(line - 1, column);
+  }
+}
+
+console.log(pascalRecur(0, 0));
+console.log(pascalRecur(1, 1), pascalRecur(1, 1));
+console.log(pascalRecur(2, 0), pascalRecur(2, 1), pascalRecur(2, 2));
+console.log(pascalRecur(3, 0), pascalRecur(3, 1), pascalRecur(3, 2), pascalRecur(3, 3));
+console.log(pascalRecur(4, 0), pascalRecur(4, 1), pascalRecur(4, 2), pascalRecur(4, 3),
+  pascalRecur(4, 4));

@@ -274,3 +274,23 @@
   (fib-lookalive-iter-helper 2 1 0 (- n 2)))
 
 (println (fib-lookalive-iter 10))
+
+; 1.12
+(defn pascal-recur
+  ; imagine the pascal triagle as a left-aligned in a grid, e.g.
+  ; 1
+  ; 1 1
+  ; 1 2 1
+  [line column]
+  (cond (= column 0) 1 ; left edge is 1.
+        (= column line) 1 ; right edge is also 1.
+        (> column line) 0 ; this should be an error, but I haven't looked into errors yet.
+        ; otherwise add the column-1 and column elements of the line above.
+        :else (+ (pascal-recur (dec line) (dec column)) (pascal-recur (dec line) column))))
+
+(println (pascal-recur 0 0))
+(println (pascal-recur 1 0) (pascal-recur 1 1))
+(println (pascal-recur 2 0) (pascal-recur 2 1) (pascal-recur 2 2))
+(println (pascal-recur 3 0) (pascal-recur 3 1) (pascal-recur 3 2) (pascal-recur 3 3))
+(println (pascal-recur 4 0) (pascal-recur 4 1) (pascal-recur 4 2) (pascal-recur 4 3)
+         (pascal-recur 4 4))
