@@ -167,3 +167,6 @@ console.log(pascalRecur(2, 0), pascalRecur(2, 1), pascalRecur(2, 2));
 console.log(pascalRecur(3, 0), pascalRecur(3, 1), pascalRecur(3, 2), pascalRecur(3, 3));
 console.log(pascalRecur(4, 0), pascalRecur(4, 1), pascalRecur(4, 2), pascalRecur(4, 3),
   pascalRecur(4, 4));
+
+// 1.13
+// Math proof, see clojure version.

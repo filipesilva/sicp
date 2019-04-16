@@ -294,3 +294,8 @@
 (println (pascal-recur 3 0) (pascal-recur 3 1) (pascal-recur 3 2) (pascal-recur 3 3))
 (println (pascal-recur 4 0) (pascal-recur 4 1) (pascal-recur 4 2) (pascal-recur 4 3)
          (pascal-recur 4 4))
+
+; 1.13
+; Fiddled around with this for a couple of hours. Went to check a couple of solutions,
+; saw that I wasn't that close. Was reminded that I really don't like pure math.
+
