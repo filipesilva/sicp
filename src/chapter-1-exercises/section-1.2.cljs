@@ -149,3 +149,7 @@
 ; Drew a tree similar to fibonacci. I guess the number of steps is also O(theta(phi^n)), and space
 ; is O(n), like fibonacci. I'm pretty sure this is common for all tree recursive of branching
 ; factor 2.
+
+; 1.15
+; a) 4 times, 12.15/3/3/3/3/3 = 0.05, which is when p isn't called again.
+; b) O(n) for both space and time, like the factorial.

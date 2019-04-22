@@ -78,3 +78,6 @@ console.log(pascalRecur(4, 0), pascalRecur(4, 1), pascalRecur(4, 2), pascalRecur
 
 // 1.14
 // Drawing and analysis, see clojure version.
+
+// 1.15
+// Analysis, see clojure version.
