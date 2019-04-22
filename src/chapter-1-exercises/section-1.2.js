@@ -75,3 +75,6 @@ console.log(pascalRecur(4, 0), pascalRecur(4, 1), pascalRecur(4, 2), pascalRecur
 
 // 1.13
 // Math proof, see clojure version.
+
+// 1.14
+// Drawing and analysis, see clojure version.

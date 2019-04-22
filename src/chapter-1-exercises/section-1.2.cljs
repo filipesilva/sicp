@@ -144,3 +144,8 @@
 ; Fiddled around with this for a couple of hours. Went to check a couple of solutions,
 ; saw that I wasn't that close. Was reminded that I really don't like pure math.
 
+
+; 1.14
+; Drew a tree similar to fibonacci. I guess the number of steps is also O(theta(phi^n)), and space
+; is O(n), like fibonacci. I'm pretty sure this is common for all tree recursive of branching
+; factor 2.
