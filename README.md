@@ -15,6 +15,7 @@ Ways to run code:
 CLJS resources:
 
 - docs: <http://clojuredocs.org/>, <https://clojure.org/reference/reader>
+- reference: <https://devdocs.io/>
 - cheatsheet: <https://cljs.info/cheatsheet/>, <https://clojure.org/api/cheatsheet>
 - syntax: <https://clojure.org/guides/learn/syntax>, <https://github.com/shaunlebron/ClojureScript-Syntax-in-15-minutes>
 - JS interop: <https://github.com/anmonteiro/lumo/wiki/Invoke-node>, <https://lambdaisland.com/episodes/clojurescript-interop>
