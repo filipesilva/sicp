@@ -21,24 +21,18 @@ CLJS resources:
 - docs: http://clojuredocs.org/, https://clojure.org/reference/reader
 - cheatsheet: https://cljs.info/cheatsheet/, https://clojure.org/api/cheatsheet
 - syntax: https://clojure.org/guides/learn/syntax, https://github.com/shaunlebron/ClojureScript-Syntax-in-15-minutes
-- JS interop: https://github.com/anmonteiro/lumo/wiki/Invoke-node, 
-https://lambdaisland.com/episodes/clojurescript-interop
+- JS interop: https://github.com/anmonteiro/lumo/wiki/Invoke-node, https://lambdaisland.com/episodes/clojurescript-interop
 - Lumo docs: https://github.com/anmonteiro/lumo/wiki/Cli-options
 - Style guide: https://github.com/bbatsov/clojure-style-guide
 
 
 ## Windows
 
-The Lumo REPL is [bugged on Windows](https://github.com/anmonteiro/lumo/issues/266) and exits after
-a few commands.
-
-Workarounds include using [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) or 
-Docker via `docker run -v $(pwd -W):/src -it anmonteiro/lumo`.
-
 To use hashbangs on Windows use [GitBash](https://git-scm.com/downloads) as your console.
 
 When using `vscode-code-runner`, use GitBash as the integrated terminal, configure the plugin to use
-the terminal, and the executor map below to run the snippet and immediately delete the temp file.
+the terminal, and the executor map below to run the snippet and immediately delete the temp file 
+(details in https://github.com/formulahendry/vscode-code-runner/issues/338#issuecomment-466659944).
 ```
   "code-runner.executorMap": {
     "javascript": "node $fullFileName && rm -f $dirWithoutTrailingSlash\\\\tempCodeRunnerFile.js",
