@@ -81,3 +81,54 @@ console.log(pascalRecur(4, 0), pascalRecur(4, 1), pascalRecur(4, 2), pascalRecur
 
 // 1.15
 // Analysis, see clojure version.
+
+// 1.16
+console.log('# 1.16');
+const square = x => x * x;
+const even = x => x % 2 == 0;
+
+const fastExpt = (b, n) => {
+  if (n == 0) {
+    return 1;
+  } else if (even(n)) {
+    return square(fastExpt(b, n / 2));
+  } else {
+    return b * fastExpt(b, n - 1);
+  }
+}
+
+console.log('## fastExpt');
+console.log(fastExpt(2, 1));
+console.log(fastExpt(2, 2));
+console.log(fastExpt(2, 3));
+console.log(fastExpt(2, 4));
+console.log(fastExpt(2, 5));
+console.log(fastExpt(2, 8));
+console.log(fastExpt(2, 10));
+console.log(fastExpt(2, 16));
+console.log(fastExpt(2, 20));
+
+const fastExptIter = (b, n) => {
+  const fastExptIterHelper = (a, b, n) => {
+    if (n == 0) {
+      return a;
+    } else if (even(n)) {
+      return fastExptIterHelper(a, square(b), n / 2);
+    } else {
+      return fastExptIterHelper(a * b, b, n - 1);
+    }
+  }
+
+  return fastExptIterHelper(1, b, n);
+}
+
+console.log('## fastExptIter');
+console.log(fastExptIter(2, 1));
+console.log(fastExptIter(2, 2));
+console.log(fastExptIter(2, 3));
+console.log(fastExptIter(2, 4));
+console.log(fastExptIter(2, 5));
+console.log(fastExptIter(2, 8));
+console.log(fastExptIter(2, 10));
+console.log(fastExptIter(2, 16));
+console.log(fastExptIter(2, 20));

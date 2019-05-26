@@ -153,3 +153,48 @@
 ; 1.15
 ; a) 4 times, 12.15/3/3/3/3/3 = 0.05, which is when p isn't called again.
 ; b) O(n) for both space and time, like the factorial.
+
+; 1.16
+(println "# 1.16")
+(defn square [n] (* n n))
+
+(defn fast-expt
+  "Exponentiation using log n steps, recursive."
+  [b n]
+  (cond (= 0 n) 1
+        (even? n) (square (fast-expt b (/ n 2)))
+        :else (* b (fast-expt b (- n 1)))))
+
+(println "## fast-expt")
+(println (fast-expt 2 1))
+(println (fast-expt 2 2))
+(println (fast-expt 2 3))
+(println (fast-expt 2 4))
+(println (fast-expt 2 5))
+(println (fast-expt 2 8))
+(println (fast-expt 2 10))
+(println (fast-expt 2 16))
+(println (fast-expt 2 20))
+
+; Found a solution, then went to compare it with others and found that mine would break down on 
+; (f 2 5) and (f 2 10), and others. The solution below isn't my original one.
+(defn fast-expt-iter
+  "Exponentiation using log n steps, iterative."
+  [b n]
+  (defn fast-expt-iter-helper [a b n]
+    (cond (= n 0) a
+          (even? n) (fast-expt-iter-helper a (square b) (/ n 2))
+          :else (fast-expt-iter-helper (* a b) b (- n 1))))
+  (fast-expt-iter-helper 1 b n))
+
+
+(println "## fast-expt-iter")
+(println (fast-expt-iter 2 1))
+(println (fast-expt-iter 2 2))
+(println (fast-expt-iter 2 3))
+(println (fast-expt-iter 2 4))
+(println (fast-expt-iter 2 5))
+(println (fast-expt-iter 2 8))
+(println (fast-expt-iter 2 10))
+(println (fast-expt-iter 2 16))
+(println (fast-expt-iter 2 20))
