@@ -1,6 +1,5 @@
 #!/usr/bin/env lumo
 
-(defn greet [username]
-  (str "Hello " username))
+(ns cljs.user)
 
 (println (greet "user"))

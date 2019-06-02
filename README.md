@@ -8,7 +8,7 @@ Ways to run code:
 
 - Running `lumo`/`node` with no arguments starts the REPL.
 - Add the `#!/usr/bin/env lumo` (or `node`) hashbang to a file to run it as an executable, which is the same as `lumo ./file.cljs`/`node ./file.js`.
-- Load a file into the CLJS REPL via `lumo -i ./file.cljs -r` or `(load-file "./file.js")` while running. The Node REPL only allows `.load file.js` while running, but errors out with hashbangs.
+- Load a file into the CLJS REPL via `lumo -i ./file.cljs -r` or `(load-file "./file.js")` while running, also to reload a file. The Node REPL only allows `.load file.js` while running, but errors out with hashbangs.
 - Build the `./scratch.cljs` file into runnable JS with `lumo -c src build.cljs` or `npx build`.
 - Run files/snippets on VSCode using [vscode-code-runner](https://github.com/formulahendry/vscode-code-runner).
 
@@ -35,3 +35,5 @@ When using `vscode-code-runner`, use GitBash as the integrated terminal, configu
     "clojure": "lumo $fullFileName && rm -f $dirWithoutTrailingSlash\\\\tempCodeRunnerFile.cljs",
   },
 ```
+
+Sometimes the REPL seems to crash after commands. This seemed to stop happening (https://github.com/anmonteiro/lumo/issues/266), then started again. Use WSL instead when that happens.
