@@ -198,3 +198,52 @@
 (println (fast-expt-iter 2 10))
 (println (fast-expt-iter 2 16))
 (println (fast-expt-iter 2 20))
+
+; 1.17
+(println "# 1.17")
+(defn double [n] (+ n n))
+(defn halve [n] (/ n 2))
+
+(defn fast-mult
+  "Multiplication using log n steps, recursive."
+  [b n]
+  (cond (= 0 n) 0
+    (even? n) (double (fast-mult b (halve n)))
+    :else (+ b (fast-mult b (- n 1)))))
+
+(println "## fast-mult")
+(println (fast-mult 2 1))
+(println (fast-mult 2 2))
+(println (fast-mult 2 3))
+(println (fast-mult 2 4))
+(println (fast-mult 2 5))
+(println (fast-mult 2 8))
+(println (fast-mult 2 10))
+(println (fast-mult 2 16))
+(println (fast-mult 2 20))
+
+; 1.18
+(println "# 1.18")
+(defn double [n] (+ n n))
+(defn halve [n] (/ n 2))
+
+(defn fast-mult-iter
+  "Exponentiation using log n steps, iterative."
+  [b n]
+  (defn fast-mult-iter-helper [a b n]
+    (cond (= n 0) a
+          (even? n) (fast-mult-iter-helper a (double b) (halve n))
+          :else (fast-mult-iter-helper (+ a b) b (- n 1))))
+  (fast-mult-iter-helper 0 b n))
+
+
+(println "## fast-mult-iter")
+(println (fast-mult-iter 2 1))
+(println (fast-mult-iter 2 2))
+(println (fast-mult-iter 2 3))
+(println (fast-mult-iter 2 4))
+(println (fast-mult-iter 2 5))
+(println (fast-mult-iter 2 8))
+(println (fast-mult-iter 2 10))
+(println (fast-mult-iter 2 16))
+(println (fast-mult-iter 2 20))

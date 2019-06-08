@@ -132,3 +132,7 @@ console.log(fastExptIter(2, 8));
 console.log(fastExptIter(2, 10));
 console.log(fastExptIter(2, 16));
 console.log(fastExptIter(2, 20));
+
+// 1.17 and 1.18
+// These two are the same as 1.16, but replacing `square` with `double`, and the
+// neutral element of `1` with `0`. There isn't much point in redoing these in JS.
