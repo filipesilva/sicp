@@ -294,3 +294,31 @@
 (println (fib 9))
 (println (fib 10))
 
+; 1.20
+; applicative order evaluation (rem is evaluated only on the tail call):
+; 1 rem     (gcd 206 40)
+; 1 rem     (gcd 40 6)
+; 1 rem     (gcd 6 4)
+; 1 rem     (gcd 4 2)
+; 0 rem     (gcd 2 0)
+; 4 total
+
+; normal order evaluation (rem is evaluated on the if condition and on the return):
+; 0 rem     (gcd 206 40) 
+; 1 rem     (gcd 40 (rem 206 40))
+; 2 rem     (gcd (rem 206 40) (rem 40 (rem 206 40)))       
+; 4 rem     (gcd (rem 40 (rem 206 40)) (rem (rem 206 40) (rem 40 (rem 206 40))))       
+; 7+4 rem   (gcd (rem (rem 206 40) (rem 40 (rem 206 40))) 
+;                (rem (rem 40 (rem 206 40)) (rem (rem 206 40) (rem 40 (rem 206 40)))) 
+; 18 total
+
+(println "# 1.20")
+
+(defn gcd [a b]
+  ; (println a b)
+  (if (= b 0)
+    a
+    (gcd b (rem a b))))
+
+
+(println (gcd 206 40))

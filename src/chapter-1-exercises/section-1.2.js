@@ -179,3 +179,11 @@ console.log(fib(8));
 console.log(fib(9));
 console.log(fib(10));
 
+// 1.20
+console.log('# 1.20')
+
+const gcd = (a, b) => b == 0 ? a : gcd(b, a % b);
+
+console.log(gcd(206, 40));
+
+
