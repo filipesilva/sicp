@@ -96,29 +96,29 @@
 
 ; 1.11
 
-(defn fib-lookalive-recur
+(defn fib-lookalike-recur
   [n]
   (if (< n 3)
     n
-    (+ (fib-lookalive-recur (- n 1))
-       (* 2 (fib-lookalive-recur (- n 2)))
-       (* 3 (fib-lookalive-recur (- n 3))))))
+    (+ (fib-lookalike-recur (- n 1))
+       (* 2 (fib-lookalike-recur (- n 2)))
+       (* 3 (fib-lookalike-recur (- n 3))))))
 
-(println (fib-lookalive-recur 10))
+(println (fib-lookalike-recur 10))
 
-(defn fib-lookalive-iter
+(defn fib-lookalike-iter
   [n]
-  (defn fib-lookalive-iter-helper
+  (defn fib-lookalike-iter-helper
     [n-1 n-2 n-3 counter]
     (if (= counter 0)
       n-1
-      (fib-lookalive-iter-helper (+ n-1 (* 2 n-2) (* 3 n-3))
+      (fib-lookalike-iter-helper (+ n-1 (* 2 n-2) (* 3 n-3))
                                  n-1
                                  n-2
                                  (dec counter))))
-  (fib-lookalive-iter-helper 2 1 0 (- n 2)))
+  (fib-lookalike-iter-helper 2 1 0 (- n 2)))
 
-(println (fib-lookalive-iter 10))
+(println (fib-lookalike-iter 10))
 
 ; 1.12
 (defn pascal-recur
@@ -208,8 +208,8 @@
   "Multiplication using log n steps, recursive."
   [b n]
   (cond (= 0 n) 0
-    (even? n) (double (fast-mult b (halve n)))
-    :else (+ b (fast-mult b (- n 1)))))
+        (even? n) (double (fast-mult b (halve n)))
+        :else (+ b (fast-mult b (- n 1)))))
 
 (println "## fast-mult")
 (println (fast-mult 2 1))
@@ -247,3 +247,50 @@
 (println (fast-mult-iter 2 10))
 (println (fast-mult-iter 2 16))
 (println (fast-mult-iter 2 20))
+
+; 1.19
+; To solve (Tpq)^2 = T(p'q')
+; Resolve (Tpq)^2 as the following system:
+; a' = bq + aq + ap
+; b' = bp + aq
+; a'' = b'q + a'q + a'p
+; b'' = b'p + a'q
+; By substitution and focusing on b'', it will resolve to:
+; a'' = b(q^2 + 2qp) + a(q^2 + 2qp) + a(p^2 + q^2)
+; b'' = b(p^2 + q^2) + a(q^2 + 2qp)
+; Where it can be seen that:
+; p' = (p^2 + q^2)
+; q' = (q^2 + 2qp)
+; Note: looking more into this, it's called the Fibonnaci Q-matrix and uses linear algebra.
+(println "# 1.19")
+(defn square [n] (* n n))
+
+(defn fib-iter [a b p q count]
+  ; (println a b p q count)
+  (cond (= count 0) b
+        (even? count) (fib-iter a
+                                b
+                                (+ (square p) (square q))
+                                (+ (square q) (* 2 p q))
+                                (/ count 2))
+        :else (fib-iter (+ (* b q) (* a q) (* a p))
+                        (+ (* b p) (* a q))
+                        p
+                        q
+                        (- count 1))))
+
+(defn fib [n]
+  (fib-iter 1 0 0 1 n))
+
+(println (fib 0))
+(println (fib 1))
+(println (fib 2))
+(println (fib 3))
+(println (fib 4))
+(println (fib 5))
+(println (fib 6))
+(println (fib 7))
+(println (fib 8))
+(println (fib 9))
+(println (fib 10))
+

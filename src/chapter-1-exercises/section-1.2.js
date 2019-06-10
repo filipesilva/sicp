@@ -136,3 +136,46 @@ console.log(fastExptIter(2, 20));
 // 1.17 and 1.18
 // These two are the same as 1.16, but replacing `square` with `double`, and the
 // neutral element of `1` with `0`. There isn't much point in redoing these in JS.
+
+// 1.19
+// This exercise is mostly the math bit, which is described in the cljs resolution.
+console.log('# 1.19')
+const square = x => x * x;
+const even = x => x % 2 == 0;
+
+const fibIter = (a, b, p, q, n) => {
+  if (n == 0) {
+    return b;
+  } else if (even(n)) {
+    return fibIter(
+      a,
+      b,
+      square(p) + square(q),
+      square(q) + 2 * p * q,
+      n / 2,
+    );
+  } else {
+    return fibIter(
+      b * q + a * q + a * p,
+      b * p + a * q,
+      p,
+      q,
+      n - 1,
+    );
+  }
+}
+
+const fib = n => fibIter(1, 0, 0, 1, n);
+
+console.log(fib(0));
+console.log(fib(1));
+console.log(fib(2));
+console.log(fib(3));
+console.log(fib(4));
+console.log(fib(5));
+console.log(fib(6));
+console.log(fib(7));
+console.log(fib(8));
+console.log(fib(9));
+console.log(fib(10));
+
