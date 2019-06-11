@@ -322,3 +322,23 @@
 
 
 (println (gcd 206 40))
+
+; 1.21
+(println "# 1.21")
+
+(defn square [n] (* n n))
+
+(defn divides? [a b]
+  (= (rem b a) 0))
+
+(defn find-divisor [n test-divisor]
+  (cond (> (square test-divisor) n) n
+        (divides? test-divisor n) test-divisor
+        :else (find-divisor n (+ test-divisor 1))))
+
+(defn smallest-divisor [n]
+  (find-divisor n 2))
+
+(println (smallest-divisor 199))
+(println (smallest-divisor 1999))
+(println (smallest-divisor 19999))

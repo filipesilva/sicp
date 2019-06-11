@@ -186,4 +186,18 @@ const gcd = (a, b) => b == 0 ? a : gcd(b, a % b);
 
 console.log(gcd(206, 40));
 
+// 1.21
+console.log('# 1.21');
+
+const square = x => x * x;
+const divides = (a, b) => b % a == 0;
+const findDivisor = (n, testDivisor) => square(testDivisor) > n ? n :
+  divides(testDivisor, n) ? testDivisor : findDivisor(n, testDivisor + 1);
+
+const smallestDivisor = n => findDivisor(n, 2);
+
+console.log(smallestDivisor(199));
+console.log(smallestDivisor(1999));
+console.log(smallestDivisor(19999));
+
 
