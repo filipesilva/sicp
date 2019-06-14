@@ -339,6 +339,51 @@
 (defn smallest-divisor [n]
   (find-divisor n 2))
 
-(println (smallest-divisor 199))
-(println (smallest-divisor 1999))
-(println (smallest-divisor 19999))
+; (println (smallest-divisor 199)) ; 199
+; (println (smallest-divisor 1999)) ; 1999
+; (println (smallest-divisor 19999)) ; 7
+
+; 1.22
+; The timing data does not confirm the premise that each 10x increase in number size results in a
+; ~3x (roughly (sqrt 10)) increase in time. The timing for 10000000 shows a 10x increase over
+; timing for 10000, but it should show ~30x instead (roughly (sqrt 1000));
+; Might also be that the timing functions can't capture benchmark such small intervals correctly,
+; with overheads for timing influencing the result.
+
+(defn prime? [n]
+  (= n (smallest-divisor n)))
+
+; Variation on the function in the book, because clojure doesn't have the runtime function.
+(defn report-prime [n]
+  (println n)
+  (time (prime? n)))
+
+(defn start-prime-test [n]
+  (if (prime? n)
+    (report-prime n)
+    false))
+
+
+(defn search-for-primes
+  "Print the 6 taken to compute the 10 first primes found after n."
+  [n]
+  (defn search-for-primes-helper [n counter]
+    (if (> counter 0)
+      (let [was-prime (start-prime-test n)]
+        (search-for-primes-helper (+ n 2) (- counter (if was-prime 1 0))))))
+  (search-for-primes-helper (if (odd? n) n (+ n 1)) 10))
+
+; (search-for-primes 10000) ; each prime takes between 0.1 and 0.3 msecs
+; (search-for-primes 100000) ; 
+; (search-for-primes 1000000) ; 
+; (search-for-primes 10000000) ; each prime takes between 1 and 3 msecs
+; (search-for-primes 100000000) ; Maximum call stack exceeded
+
+; 1.23
+
+
+; 1.24
+; (defn expmod [base exp m]
+;   (cond (= exp 0) 1
+;         (even? exp) (rem (square (expmod base (/ exp 2) m)) m)
+;         :else  (rem (square (expmod base (- exp 1) m)) m)))

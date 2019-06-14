@@ -200,4 +200,41 @@ console.log(smallestDivisor(199));
 console.log(smallestDivisor(1999));
 console.log(smallestDivisor(19999));
 
+// 1.22
+// The timing data does not confirm the premise that each 10x increase in number size results in a
+// ~3x (roughly (sqrt 10)) increase in time. The timing for 10000000 shows a 3x to 8x increase over
+// timing for 10000, but it should show ~30x instead (roughly (sqrt 1000));
+// Might also be that the timing functions can't capture benchmark such small intervals correctly,
+// with overheads for timing influencing the result.
+console.log('# 1.21');
 
+const odd = x => x % 2 != 0;
+const time = fn => {
+  const start = process.hrtime.bigint();
+  const res = fn();
+  const end = process.hrtime.bigint();
+  console.log(`Elapsed time: ${end - start} nanoseconds`)
+  return res;
+}
+const prime = n => n == smallestDivisor(n);
+const reportPrime = n => time(() => prime(n));
+const startPrimeTest = n => prime(n) ? reportPrime(n) : false;
+const timedPrimeTest = n => {
+  console.log(n);
+  return startPrimeTest(n);
+}
+const searchForPrimes = n => {
+  const searchForPrimesHelper = (n, counter) => {
+    if (counter > 0) {
+      const wasPrime = timedPrimeTest(n);
+      return searchForPrimesHelper(n + 2, counter - (wasPrime ? 1 : 0));
+    }
+  }
+  return searchForPrimesHelper(odd(n) ? n : n + 1, 10);
+}
+
+// searchForPrimes(10000); // each prime takes between 8900 and 33000 nanoseconds
+// searchForPrimes(100000);
+// searchForPrimes(1000000);
+// searchForPrimes(10000000); // each prime takes between 24800 and 272000 nanoseconds
+// searchForPrimes(1000000000); // Maximum call stack exceeded
