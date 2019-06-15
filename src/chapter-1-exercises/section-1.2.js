@@ -7,14 +7,14 @@ const newAdd = (a, b) =>
     ? b
     : newAdd(a - 1, b) + 1;
 
-console.log(newAdd(4, 5));
+// console.log(newAdd(4, 5));
 
 const anotherNewAdd = (a, b) =>
   a == 0
     ? b
     : anotherNewAdd(--a, ++b);
 
-console.log(anotherNewAdd(4, 5));
+// console.log(anotherNewAdd(4, 5));
 
 // 1.10
 // This is mostly a analysis question that isn't related to the language.
@@ -35,7 +35,7 @@ const fibLookalikeRecur = n =>
     ? n
     : fibLookalikeRecur(n - 1) + 2 * fibLookalikeRecur(n - 2) + 3 * fibLookalikeRecur(n - 3);
 
-console.log(fibLookalikeRecur(10));
+// console.log(fibLookalikeRecur(10));
 
 const fibLookalikeIter = n => {
   const fibLookalikeIterHelper = (nMinus1, nMinus2, nMinus3, counter) =>
@@ -51,7 +51,7 @@ const fibLookalikeIter = n => {
   return fibLookalikeIterHelper(2, 1, 0, n - 2);
 }
 
-console.log(fibLookalikeIter(10));
+// console.log(fibLookalikeIter(10));
 
 // 1.12
 const pascalRecur = (line, column) => {
@@ -66,12 +66,12 @@ const pascalRecur = (line, column) => {
   }
 }
 
-console.log(pascalRecur(0, 0));
-console.log(pascalRecur(1, 1), pascalRecur(1, 1));
-console.log(pascalRecur(2, 0), pascalRecur(2, 1), pascalRecur(2, 2));
-console.log(pascalRecur(3, 0), pascalRecur(3, 1), pascalRecur(3, 2), pascalRecur(3, 3));
-console.log(pascalRecur(4, 0), pascalRecur(4, 1), pascalRecur(4, 2), pascalRecur(4, 3),
-  pascalRecur(4, 4));
+// console.log(pascalRecur(0, 0));
+// console.log(pascalRecur(1, 1), pascalRecur(1, 1));
+// console.log(pascalRecur(2, 0), pascalRecur(2, 1), pascalRecur(2, 2));
+// console.log(pascalRecur(3, 0), pascalRecur(3, 1), pascalRecur(3, 2), pascalRecur(3, 3));
+// console.log(pascalRecur(4, 0), pascalRecur(4, 1), pascalRecur(4, 2), pascalRecur(4, 3),
+//   pascalRecur(4, 4));
 
 // 1.13
 // Math proof, see clojure version.
@@ -83,7 +83,6 @@ console.log(pascalRecur(4, 0), pascalRecur(4, 1), pascalRecur(4, 2), pascalRecur
 // Analysis, see clojure version.
 
 // 1.16
-console.log('# 1.16');
 const square = x => x * x;
 const even = x => x % 2 == 0;
 
@@ -97,16 +96,16 @@ const fastExpt = (b, n) => {
   }
 }
 
-console.log('## fastExpt');
-console.log(fastExpt(2, 1));
-console.log(fastExpt(2, 2));
-console.log(fastExpt(2, 3));
-console.log(fastExpt(2, 4));
-console.log(fastExpt(2, 5));
-console.log(fastExpt(2, 8));
-console.log(fastExpt(2, 10));
-console.log(fastExpt(2, 16));
-console.log(fastExpt(2, 20));
+// console.log('## fastExpt');
+// console.log(fastExpt(2, 1));
+// console.log(fastExpt(2, 2));
+// console.log(fastExpt(2, 3));
+// console.log(fastExpt(2, 4));
+// console.log(fastExpt(2, 5));
+// console.log(fastExpt(2, 8));
+// console.log(fastExpt(2, 10));
+// console.log(fastExpt(2, 16));
+// console.log(fastExpt(2, 20));
 
 const fastExptIter = (b, n) => {
   const fastExptIterHelper = (a, b, n) => {
@@ -122,16 +121,16 @@ const fastExptIter = (b, n) => {
   return fastExptIterHelper(1, b, n);
 }
 
-console.log('## fastExptIter');
-console.log(fastExptIter(2, 1));
-console.log(fastExptIter(2, 2));
-console.log(fastExptIter(2, 3));
-console.log(fastExptIter(2, 4));
-console.log(fastExptIter(2, 5));
-console.log(fastExptIter(2, 8));
-console.log(fastExptIter(2, 10));
-console.log(fastExptIter(2, 16));
-console.log(fastExptIter(2, 20));
+// console.log('## fastExptIter');
+// console.log(fastExptIter(2, 1));
+// console.log(fastExptIter(2, 2));
+// console.log(fastExptIter(2, 3));
+// console.log(fastExptIter(2, 4));
+// console.log(fastExptIter(2, 5));
+// console.log(fastExptIter(2, 8));
+// console.log(fastExptIter(2, 10));
+// console.log(fastExptIter(2, 16));
+// console.log(fastExptIter(2, 20));
 
 // 1.17 and 1.18
 // These two are the same as 1.16, but replacing `square` with `double`, and the
@@ -139,9 +138,6 @@ console.log(fastExptIter(2, 20));
 
 // 1.19
 // This exercise is mostly the math bit, which is described in the cljs resolution.
-console.log('# 1.19')
-const square = x => x * x;
-const even = x => x % 2 == 0;
 
 const fibIter = (a, b, p, q, n) => {
   if (n == 0) {
@@ -167,38 +163,33 @@ const fibIter = (a, b, p, q, n) => {
 
 const fib = n => fibIter(1, 0, 0, 1, n);
 
-console.log(fib(0));
-console.log(fib(1));
-console.log(fib(2));
-console.log(fib(3));
-console.log(fib(4));
-console.log(fib(5));
-console.log(fib(6));
-console.log(fib(7));
-console.log(fib(8));
-console.log(fib(9));
-console.log(fib(10));
+// console.log(fib(0));
+// console.log(fib(1));
+// console.log(fib(2));
+// console.log(fib(3));
+// console.log(fib(4));
+// console.log(fib(5));
+// console.log(fib(6));
+// console.log(fib(7));
+// console.log(fib(8));
+// console.log(fib(9));
+// console.log(fib(10));
 
 // 1.20
-console.log('# 1.20')
-
 const gcd = (a, b) => b == 0 ? a : gcd(b, a % b);
 
-console.log(gcd(206, 40));
+// console.log(gcd(206, 40));
 
 // 1.21
-console.log('# 1.21');
-
-const square = x => x * x;
 const divides = (a, b) => b % a == 0;
 const findDivisor = (n, testDivisor) => square(testDivisor) > n ? n :
   divides(testDivisor, n) ? testDivisor : findDivisor(n, testDivisor + 1);
 
 const smallestDivisor = n => findDivisor(n, 2);
 
-console.log(smallestDivisor(199));
-console.log(smallestDivisor(1999));
-console.log(smallestDivisor(19999));
+// console.log(smallestDivisor(199));
+// console.log(smallestDivisor(1999));
+// console.log(smallestDivisor(19999));
 
 // 1.22
 // The timing data does not confirm the premise that each 10x increase in number size results in a
@@ -206,7 +197,6 @@ console.log(smallestDivisor(19999));
 // timing for 10000, but it should show ~30x instead (roughly (sqrt 1000));
 // Might also be that the timing functions can't capture benchmark such small intervals correctly,
 // with overheads for timing influencing the result.
-console.log('# 1.21');
 
 const odd = x => x % 2 != 0;
 const time = fn => {
@@ -238,3 +228,33 @@ const searchForPrimes = n => {
 // searchForPrimes(1000000);
 // searchForPrimes(10000000); // each prime takes between 24800 and 272000 nanoseconds
 // searchForPrimes(1000000000); // Maximum call stack exceeded
+
+// 1.23
+// Saw ratios between 8x and 1.5x (prime/notSoFastPrime). notSoFastPrime is faster.
+
+const reportPrimeWithFn = (n, primeFn) => time(() => primeFn(n));
+const testKnownPrimes = primeFn => {
+  reportPrimeWithFn(10007, primeFn);
+  reportPrimeWithFn(10009, primeFn);
+  reportPrimeWithFn(10037, primeFn);
+  reportPrimeWithFn(100003, primeFn);
+  reportPrimeWithFn(100019, primeFn);
+  reportPrimeWithFn(100043, primeFn);
+  reportPrimeWithFn(1000003, primeFn);
+  reportPrimeWithFn(1000033, primeFn);
+  reportPrimeWithFn(1000037, primeFn);
+  reportPrimeWithFn(10000019, primeFn);
+  reportPrimeWithFn(10000079, primeFn);
+  reportPrimeWithFn(10000103, primeFn);
+}
+
+const nextDivisor = testDivisor => testDivisor == 2 ? 3 : testDivisor + 2;
+const fastFindDivisor = (n, testDivisor) => square(testDivisor) > n ? n :
+  divides(testDivisor, n) ? testDivisor : fastFindDivisor(n, nextDivisor(testDivisor));
+const fastSmallestDivisor = n => fastFindDivisor(n, 2);
+const notSoFastPrime = n => n == fastSmallestDivisor(n);
+
+console.log('prime');
+testKnownPrimes(prime);
+console.log('notSoFastPrime');
+testKnownPrimes(notSoFastPrime);

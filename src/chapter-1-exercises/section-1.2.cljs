@@ -5,7 +5,7 @@
     b
     (inc (new+ (dec a) b))))
 
-(println (new+ 4 5))
+; (println (new+ 4 5))
 ; (+ 4 5)
 ; (inc (+ 3 5))
 ; (inc (inc (+ 2 5)))
@@ -24,7 +24,7 @@
     b
     (another-new+ (dec a) (inc b))))
 
-(println (another-new+ 4 5))
+; (println (another-new+ 4 5))
 
 ; (+ 4 5)
 ; (+ 3 6)
@@ -46,15 +46,15 @@
         :else (A (- x 1)
                  (A x (- y 1)))))
 
-(println (A 1 10))
-(println (A 2 4))
-(println (A 3 3))
+; (println (A 1 10))
+; (println (A 2 4))
+; (println (A 3 3))
 
 (defn k
   "Computes 5n^2"
   [n]
   (* 5 n n))
-(println "k" (k 2))
+; (println "k" (k 2))
 
 ; (A 0 4) 
 ; (* 2 4)
@@ -62,7 +62,7 @@
   "Computes 2n"
   [n]
   (A 0 n))
-(println "f" (f 1) (f 2) (f 3) (f 4) (f 5) (f 6) (f 7)) ; f 2 4 6 8 10 12 14
+; (println "f" (f 1) (f 2) (f 3) (f 4) (f 5) (f 6) (f 7)) ; f 2 4 6 8 10 12 14
 
 ; (A 1 4)
 ; (A 0 (A 1 3))
@@ -77,7 +77,7 @@
   Or: computes (2*)(repeat n times)1. e.g. (g 4) is 2*2*2*2*1."
   [n]
   (A 1 n))
-(println "g" (g 1) (g 2) (g 3) (g 4) (g 5) (g 6) (g 7)) ; prints g 2 4 8 16 32 64 128
+; (println "g" (g 1) (g 2) (g 3) (g 4) (g 5) (g 6) (g 7)) ; prints g 2 4 8 16 32 64 128
 
 ; (A 2 4)
 ; (A 1 (A 2 3))
@@ -91,7 +91,7 @@
   "Computes (2^)(repeat n times)1. e.g. (h 4) is 2^2^2^2^1."
   [n]
   (A 2 n))
-(println "h" (h 1) (h 2) (h 3) (h 4)) ; h 2 4 16 65536
+; (println "h" (h 1) (h 2) (h 3) (h 4)) ; h 2 4 16 65536
 
 
 ; 1.11
@@ -104,7 +104,7 @@
        (* 2 (fib-lookalike-recur (- n 2)))
        (* 3 (fib-lookalike-recur (- n 3))))))
 
-(println (fib-lookalike-recur 10))
+; (println (fib-lookalike-recur 10))
 
 (defn fib-lookalike-iter
   [n]
@@ -118,7 +118,7 @@
                                  (dec counter))))
   (fib-lookalike-iter-helper 2 1 0 (- n 2)))
 
-(println (fib-lookalike-iter 10))
+; (println (fib-lookalike-iter 10))
 
 ; 1.12
 (defn pascal-recur
@@ -133,12 +133,12 @@
         ; otherwise add the column-1 and column elements of the line above.
         :else (+ (pascal-recur (dec line) (dec column)) (pascal-recur (dec line) column))))
 
-(println (pascal-recur 0 0))
-(println (pascal-recur 1 0) (pascal-recur 1 1))
-(println (pascal-recur 2 0) (pascal-recur 2 1) (pascal-recur 2 2))
-(println (pascal-recur 3 0) (pascal-recur 3 1) (pascal-recur 3 2) (pascal-recur 3 3))
-(println (pascal-recur 4 0) (pascal-recur 4 1) (pascal-recur 4 2) (pascal-recur 4 3)
-         (pascal-recur 4 4))
+; (println (pascal-recur 0 0))
+; (println (pascal-recur 1 0) (pascal-recur 1 1))
+; (println (pascal-recur 2 0) (pascal-recur 2 1) (pascal-recur 2 2))
+; (println (pascal-recur 3 0) (pascal-recur 3 1) (pascal-recur 3 2) (pascal-recur 3 3))
+; (println (pascal-recur 4 0) (pascal-recur 4 1) (pascal-recur 4 2) (pascal-recur 4 3)
+;          (pascal-recur 4 4))
 
 ; 1.13
 ; Fiddled around with this for a couple of hours. Went to check a couple of solutions,
@@ -155,7 +155,6 @@
 ; b) O(n) for both space and time, like the factorial.
 
 ; 1.16
-(println "# 1.16")
 (defn square [n] (* n n))
 
 (defn fast-expt
@@ -165,16 +164,16 @@
         (even? n) (square (fast-expt b (/ n 2)))
         :else (* b (fast-expt b (- n 1)))))
 
-(println "## fast-expt")
-(println (fast-expt 2 1))
-(println (fast-expt 2 2))
-(println (fast-expt 2 3))
-(println (fast-expt 2 4))
-(println (fast-expt 2 5))
-(println (fast-expt 2 8))
-(println (fast-expt 2 10))
-(println (fast-expt 2 16))
-(println (fast-expt 2 20))
+; (println "## fast-expt")
+; (println (fast-expt 2 1))
+; (println (fast-expt 2 2))
+; (println (fast-expt 2 3))
+; (println (fast-expt 2 4))
+; (println (fast-expt 2 5))
+; (println (fast-expt 2 8))
+; (println (fast-expt 2 10))
+; (println (fast-expt 2 16))
+; (println (fast-expt 2 20))
 
 ; Found a solution, then went to compare it with others and found that mine would break down on 
 ; (f 2 5) and (f 2 10), and others. The solution below isn't my original one.
@@ -188,20 +187,18 @@
   (fast-expt-iter-helper 1 b n))
 
 
-(println "## fast-expt-iter")
-(println (fast-expt-iter 2 1))
-(println (fast-expt-iter 2 2))
-(println (fast-expt-iter 2 3))
-(println (fast-expt-iter 2 4))
-(println (fast-expt-iter 2 5))
-(println (fast-expt-iter 2 8))
-(println (fast-expt-iter 2 10))
-(println (fast-expt-iter 2 16))
-(println (fast-expt-iter 2 20))
+; (println "## fast-expt-iter")
+; (println (fast-expt-iter 2 1))
+; (println (fast-expt-iter 2 2))
+; (println (fast-expt-iter 2 3))
+; (println (fast-expt-iter 2 4))
+; (println (fast-expt-iter 2 5))
+; (println (fast-expt-iter 2 8))
+; (println (fast-expt-iter 2 10))
+; (println (fast-expt-iter 2 16))
+; (println (fast-expt-iter 2 20))
 
 ; 1.17
-(println "# 1.17")
-(defn double [n] (+ n n))
 (defn halve [n] (/ n 2))
 
 (defn fast-mult
@@ -211,20 +208,18 @@
         (even? n) (double (fast-mult b (halve n)))
         :else (+ b (fast-mult b (- n 1)))))
 
-(println "## fast-mult")
-(println (fast-mult 2 1))
-(println (fast-mult 2 2))
-(println (fast-mult 2 3))
-(println (fast-mult 2 4))
-(println (fast-mult 2 5))
-(println (fast-mult 2 8))
-(println (fast-mult 2 10))
-(println (fast-mult 2 16))
-(println (fast-mult 2 20))
+; (println "## fast-mult")
+; (println (fast-mult 2 1))
+; (println (fast-mult 2 2))
+; (println (fast-mult 2 3))
+; (println (fast-mult 2 4))
+; (println (fast-mult 2 5))
+; (println (fast-mult 2 8))
+; (println (fast-mult 2 10))
+; (println (fast-mult 2 16))
+; (println (fast-mult 2 20))
 
 ; 1.18
-(println "# 1.18")
-(defn double [n] (+ n n))
 (defn halve [n] (/ n 2))
 
 (defn fast-mult-iter
@@ -237,16 +232,16 @@
   (fast-mult-iter-helper 0 b n))
 
 
-(println "## fast-mult-iter")
-(println (fast-mult-iter 2 1))
-(println (fast-mult-iter 2 2))
-(println (fast-mult-iter 2 3))
-(println (fast-mult-iter 2 4))
-(println (fast-mult-iter 2 5))
-(println (fast-mult-iter 2 8))
-(println (fast-mult-iter 2 10))
-(println (fast-mult-iter 2 16))
-(println (fast-mult-iter 2 20))
+; (println "## fast-mult-iter")
+; (println (fast-mult-iter 2 1))
+; (println (fast-mult-iter 2 2))
+; (println (fast-mult-iter 2 3))
+; (println (fast-mult-iter 2 4))
+; (println (fast-mult-iter 2 5))
+; (println (fast-mult-iter 2 8))
+; (println (fast-mult-iter 2 10))
+; (println (fast-mult-iter 2 16))
+; (println (fast-mult-iter 2 20))
 
 ; 1.19
 ; To solve (Tpq)^2 = T(p'q')
@@ -262,7 +257,6 @@
 ; p' = (p^2 + q^2)
 ; q' = (q^2 + 2qp)
 ; Note: looking more into this, it's called the Fibonnaci Q-matrix and uses linear algebra.
-(println "# 1.19")
 (defn square [n] (* n n))
 
 (defn fib-iter [a b p q count]
@@ -282,17 +276,17 @@
 (defn fib [n]
   (fib-iter 1 0 0 1 n))
 
-(println (fib 0))
-(println (fib 1))
-(println (fib 2))
-(println (fib 3))
-(println (fib 4))
-(println (fib 5))
-(println (fib 6))
-(println (fib 7))
-(println (fib 8))
-(println (fib 9))
-(println (fib 10))
+; (println (fib 0))
+; (println (fib 1))
+; (println (fib 2))
+; (println (fib 3))
+; (println (fib 4))
+; (println (fib 5))
+; (println (fib 6))
+; (println (fib 7))
+; (println (fib 8))
+; (println (fib 9))
+; (println (fib 10))
 
 ; 1.20
 ; applicative order evaluation (rem is evaluated only on the tail call):
@@ -312,8 +306,6 @@
 ;                (rem (rem 40 (rem 206 40)) (rem (rem 206 40) (rem 40 (rem 206 40)))) 
 ; 18 total
 
-(println "# 1.20")
-
 (defn gcd [a b]
   ; (println a b)
   (if (= b 0)
@@ -321,10 +313,9 @@
     (gcd b (rem a b))))
 
 
-(println (gcd 206 40))
+; (println (gcd 206 40))
 
 ; 1.21
-(println "# 1.21")
 
 (defn square [n] (* n n))
 
@@ -371,7 +362,7 @@
     (if (> counter 0)
       (let [was-prime (start-prime-test n)]
         (search-for-primes-helper (+ n 2) (- counter (if was-prime 1 0))))))
-  (search-for-primes-helper (if (odd? n) n (+ n 1)) 10))
+  (search-for-primes-helper (if (odd? n) n (+ n 1)) 3))
 
 ; (search-for-primes 10000) ; each prime takes between 0.1 and 0.3 msecs
 ; (search-for-primes 100000) ; 
@@ -380,6 +371,46 @@
 ; (search-for-primes 100000000) ; Maximum call stack exceeded
 
 ; 1.23
+; Saw ratios between 10x and 1.5x (prime?/not-so-fast-prime?). not-so-fast-prime? is faster.
+; But there's so much variance in these measurements that it's hard to get good data.
+; Would need bigger numbers and a way to not hit the stack limit to get accurate numbers.
+
+(defn report-prime-with-fn [n prime-fn]
+  (println n)
+  (time (prime-fn n)))
+
+(defn test-known-primes [prime-fn]
+  (report-prime-with-fn 10007 prime-fn)
+  (report-prime-with-fn 10009 prime-fn)
+  (report-prime-with-fn 10037 prime-fn)
+  (report-prime-with-fn 100003 prime-fn)
+  (report-prime-with-fn 100019 prime-fn)
+  (report-prime-with-fn 100043 prime-fn)
+  (report-prime-with-fn 1000003 prime-fn)
+  (report-prime-with-fn 1000033 prime-fn)
+  (report-prime-with-fn 1000037 prime-fn)
+  (report-prime-with-fn 10000019 prime-fn)
+  (report-prime-with-fn 10000079 prime-fn)
+  (report-prime-with-fn 10000103 prime-fn))
+
+(defn next-divisor [test-divisor]
+  (if (= test-divisor 2) 3 (+ test-divisor 2)))
+
+(defn fast-find-divisor [n test-divisor]
+  (cond (> (square test-divisor) n) n
+        (divides? test-divisor n) test-divisor
+        :else (find-divisor n (next-divisor test-divisor ))))
+
+(defn fast-smallest-divisor [n]
+  (fast-find-divisor n 2))
+
+(defn not-so-fast-prime? [n]
+  (= n (fast-smallest-divisor n)))
+
+; (println "prime?")
+; (test-known-primes prime?)
+; (println "not-so-fast-prime?")
+; (test-known-primes not-so-fast-prime?)
 
 
 ; 1.24
