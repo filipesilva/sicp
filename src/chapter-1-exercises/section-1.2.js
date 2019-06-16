@@ -248,13 +248,44 @@ const testKnownPrimes = primeFn => {
   reportPrimeWithFn(10000103, primeFn);
 }
 
+// JS notes: this function syntax is very succint. More succint than CLJS.
 const nextDivisor = testDivisor => testDivisor == 2 ? 3 : testDivisor + 2;
 const fastFindDivisor = (n, testDivisor) => square(testDivisor) > n ? n :
   divides(testDivisor, n) ? testDivisor : fastFindDivisor(n, nextDivisor(testDivisor));
 const fastSmallestDivisor = n => fastFindDivisor(n, 2);
 const notSoFastPrime = n => n == fastSmallestDivisor(n);
 
-console.log('prime');
-testKnownPrimes(prime);
-console.log('notSoFastPrime');
-testKnownPrimes(notSoFastPrime);
+// console.log('prime');
+// testKnownPrimes(prime);
+// console.log('notSoFastPrime');
+// testKnownPrimes(notSoFastPrime);
+
+// 1.24
+// Similar results as the CLJS version. Can't calculate the constant well, but it takes way
+// less time than the regular prime.
+
+const randInt = max => Math.floor(Math.random() * Math.floor(max));
+
+// JS notes: 
+// - chained ternaries with the colon on separate paragraphs look a lot like CLJS conds. But the
+// auto formatter doesn't let the colons be beneath each other.
+// - CLJS prefix notation makes it much easier to reason about operations. The second and third
+// (else) conditions below look different because of how square is a function but multiplying by
+// base is using an operators. But in CLJS it's very clear that they are similar because
+// the structure is the same.
+// - nested function definitions prevent using the expression (block-less) syntax for arrow 
+// functions.
+const expmod = (base, exp, m) => exp == 0 ? 1
+  : even(exp) ? square(expmod(base, exp / 2, m)) % m
+    : (base * expmod(base, exp - 1, m)) % m;
+const fermatTest = n => {
+  const tryIt = a => expmod(a, n, n) == a;
+  return tryIt(1 + randInt(n - 1));
+}
+const fastPrime = (n, times) => times == 0 ? true
+  : fermatTest(n) ? fastPrime(n, times - 1)
+    : false;
+const fastPrime5Iter = n => fastPrime(n, 5);
+
+// console.log('fastPrime5Iter');
+// testKnownPrimes(fastPrime5Iter);

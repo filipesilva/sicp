@@ -335,11 +335,15 @@
 ; (println (smallest-divisor 19999)) ; 7
 
 ; 1.22
+; Used 10000 as the smallest because computation is so fast that bigger numbers are necessary to
+; get timing numbers.
 ; The timing data does not confirm the premise that each 10x increase in number size results in a
 ; ~3x (roughly (sqrt 10)) increase in time. The timing for 10000000 shows a 10x increase over
 ; timing for 10000, but it should show ~30x instead (roughly (sqrt 1000));
 ; Might also be that the timing functions can't capture benchmark such small intervals correctly,
-; with overheads for timing influencing the result.
+; with overheads for timing influencing the result. 
+; The first prime always takes way longer to compute. This likely has to do with the JS JIT
+; compiler optimizes these code paths after the first run.
 
 (defn prime? [n]
   (= n (smallest-divisor n)))
@@ -399,7 +403,7 @@
 (defn fast-find-divisor [n test-divisor]
   (cond (> (square test-divisor) n) n
         (divides? test-divisor n) test-divisor
-        :else (find-divisor n (next-divisor test-divisor ))))
+        :else (find-divisor n (next-divisor test-divisor))))
 
 (defn fast-smallest-divisor [n]
   (fast-find-divisor n 2))
@@ -414,7 +418,41 @@
 
 
 ; 1.24
-; (defn expmod [base exp m]
-;   (cond (= exp 0) 1
-;         (even? exp) (rem (square (expmod base (/ exp 2) m)) m)
-;         :else  (rem (square (expmod base (- exp 1) m)) m)))
+; n=10,000,000 is 1,000 times bigger than n=10,000. According to O(log(n)) growth, doubling the
+; problem size only increases the resources by a constant amount.
+; 1000 times bigger is roughly 2^10 (1024), so you can also say it has doubled 10 times.
+; I don't really know what the constant is but I could find out by subtracting the time it takes
+; to calculate (fast-prime?-5-iter n) from (fast-prime?-5-iter 2n). That constant times 10 is what
+; I expect primes near 1,000,000 to take to calculate versus primes near 1,000. But the numbers
+; vary so much between even consecutive primes (e.g. 0.096300 followed by 0.155900 msecs) that it is
+; difficult to calculate.
+; fast-prime?-5-iter took 0.155900 msecs for 10037 and 0.188599 msecs for 10000079.
+; I expected something a bit less modest, like 2x, because log2(10000) is 13.2 and log2 (10000000)
+; is 23.
+; By comparison, prime? took 0.109700 msecs for 10037 and 1.175900 msecs for 10000079.
+; We can see that fast-prime?-5-iter is much faster, but the difference between calculating the
+; two primes is so small that overheads, like the timing code, take most of the time.
+; The real time it takes for the computer to perform these computations might also be much smaller
+; than predicted due to the type of calculations involved. Doubling is an highly optimized operation
+; because of the nature of binary representations.
+
+(defn expmod [base exp m]
+  (cond (= exp 0) 1
+        (even? exp) (rem (square (expmod base (/ exp 2) m)) m)
+        :else  (rem (* base (expmod base (- exp 1) m)) m)))
+
+(defn fermat-test [n]
+  (defn try-it [a]
+    (= (expmod a n n) a))
+  (try-it (+ 1 (rand-int (- n 1)))))
+
+(defn fast-prime? [n times]
+  (cond (= times 0) true
+        (fermat-test n) (fast-prime? n (- times 1))
+        :else false))
+
+(defn fast-prime?-5-iter [n]
+  (fast-prime? n 5))
+
+(println "fast-prime?-5-iter")
+(test-known-primes fast-prime?-5-iter)
