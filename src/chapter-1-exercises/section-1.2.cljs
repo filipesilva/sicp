@@ -480,3 +480,11 @@
 ; (println (fast-expt 10 10))
 ; (println (fast-expt 10 100))
 ; (println (fast-expt 10 1000))
+
+; 1.26
+; The purpose of halving the exponent followed by square the result in the even case was to
+; repeatedly halve the number of operations needed to perform the computation, thus achieving
+; O(log n).
+; But in this variation, the even case also doubles the number of expmod calls, negating the 
+; benefit. The even case is now performing the same number of operations as the else case,
+; bringing it back to O(log n).

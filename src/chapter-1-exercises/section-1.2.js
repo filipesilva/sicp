@@ -248,7 +248,7 @@ const testKnownPrimes = primeFn => {
   reportPrimeWithFn(10000103, primeFn);
 }
 
-// JS notes: this function syntax is very succint. More succint than CLJS.
+// Language notes: this function syntax is very succint. More succint than CLJS.
 const nextDivisor = testDivisor => testDivisor == 2 ? 3 : testDivisor + 2;
 const fastFindDivisor = (n, testDivisor) => square(testDivisor) > n ? n :
   divides(testDivisor, n) ? testDivisor : fastFindDivisor(n, nextDivisor(testDivisor));
@@ -266,9 +266,9 @@ const notSoFastPrime = n => n == fastSmallestDivisor(n);
 
 const randInt = max => Math.floor(Math.random() * Math.floor(max));
 
-// JS notes: 
+// Language notes: 
 // - chained ternaries with the colon on separate paragraphs look a lot like CLJS conds. But the
-// auto formatter doesn't let the colons be beneath each other.
+// auto formatter doesn't let the colons be beneath each other. Maybe a switch would be better.
 // - CLJS prefix notation makes it much easier to reason about operations. The second and third
 // (else) conditions below look different because of how square is a function but multiplying by
 // base is using an operators. But in CLJS it's very clear that they are similar because
@@ -291,4 +291,7 @@ const fastPrime5Iter = n => fastPrime(n, 5);
 // testKnownPrimes(fastPrime5Iter);
 
 // 1.25
+// See CLJS version for answer.
+
+// 1.26
 // See CLJS version for answer.
