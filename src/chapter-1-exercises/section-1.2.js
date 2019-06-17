@@ -289,3 +289,6 @@ const fastPrime5Iter = n => fastPrime(n, 5);
 
 // console.log('fastPrime5Iter');
 // testKnownPrimes(fastPrime5Iter);
+
+// 1.25
+// See CLJS version for answer.

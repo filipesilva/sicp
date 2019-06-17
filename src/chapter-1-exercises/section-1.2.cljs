@@ -454,5 +454,29 @@
 (defn fast-prime?-5-iter [n]
   (fast-prime? n 5))
 
-(println "fast-prime?-5-iter")
-(test-known-primes fast-prime?-5-iter)
+; (println "fast-prime?-5-iter")
+; (test-known-primes fast-prime?-5-iter)
+
+; 1.25
+; The original expmod uses the following property: x * y mod m = ((x mod m)*(y mod m)) mod m.
+; Using this property when computing the intermediate values ensures that no intermediate value
+; is much bigger than m, as described in footnote 46.
+; expmod-mod doesn't use this property and attempts to compute the full exponential up front.
+; Dependending on the language implementation, numbers might have different maximum values and 
+; precision. It's much easier to reach the maximum or lose precision with expmod-mod because
+; it computes a much larger number.
+; CLJS compiles down to JS and is subject to its number precision. Computing (expmod 10 10000 4)
+; works, but using expmod-mod for the same computation does not yield a number.
+; This is because calculating (fast-expt 10 10) is still accurate (10000000000), while 
+; (fast-expt 10 100) loses precision (9.999999999999992e+99) and (fast-expt 10 1000) returns 
+; the value for Infinity.
+
+(defn expmod-mod [base exp m]
+  (rem (fast-expt base exp) m))
+
+; (println (expmod 10 10000 4))
+; (println (expmod-mod 10 10000 4))
+; (println (fast-expt 10 10000))
+; (println (fast-expt 10 10))
+; (println (fast-expt 10 100))
+; (println (fast-expt 10 1000))
