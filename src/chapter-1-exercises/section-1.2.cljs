@@ -488,3 +488,26 @@
 ; But in this variation, the even case also doubles the number of expmod calls, negating the 
 ; benefit. The even case is now performing the same number of operations as the else case,
 ; bringing it back to O(log n).
+
+; 1.27
+; Can confirm, the Carmichael numbers do fool the fermat test.
+
+(defn full-fermat-test [n]
+  (defn helper [a]
+    (cond (= a 0) true
+          (= (expmod a n n) a) (helper (dec a))
+          :else false))
+  (helper (dec n)))
+
+; (println (full-fermat-test 561))
+; (println (prime? 561))
+; (println (full-fermat-test 1105))
+; (println (prime? 1105))
+; (println (full-fermat-test 1729))
+; (println (prime? 1729))
+; (println (full-fermat-test 2465))
+; (println (prime? 2465))
+; (println (full-fermat-test 2821))
+; (println (prime? 2821))
+; (println (full-fermat-test 6601))
+; (println (prime? 6601))

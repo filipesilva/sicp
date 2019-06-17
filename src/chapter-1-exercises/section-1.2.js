@@ -295,3 +295,33 @@ const fastPrime5Iter = n => fastPrime(n, 5);
 
 // 1.26
 // See CLJS version for answer.
+
+// 1.27
+// See explation in CLJS version.
+
+// Language notes: I could have used --a instead of a - 1 because a is not used any more in that
+// scope. But doing the same for n would have changed its value in the scope, and affected
+// computations inside the helper. It would also have made the code harder to modify, since you'd
+// need to refactor --a/--n into a - 1/ n - 1 in the future if you added operations afterwards that
+// used the original values in the same scope. It's also easy to confuse --a with a--, but they
+// are not the same and would have cause some computations to be repeated in this case.
+// The decrement operator feels like a footgun here.
+const fullFermatTest = n => {
+  const helper = a => a == 0 ? true
+    : expmod(a, n, n) == a ? helper(a - 1)
+      : false;
+  return helper(n - 1);
+}
+
+// console.log(fullFermatTest(561));
+// console.log(prime(561));
+// console.log(fullFermatTest(1105));
+// console.log(prime(1105));
+// console.log(fullFermatTest(1729));
+// console.log(prime(1729));
+// console.log(fullFermatTest(2465));
+// console.log(prime(2465));
+// console.log(fullFermatTest(2821));
+// console.log(prime(2821));
+// console.log(fullFermatTest(6601));
+// console.log(prime(6601));
