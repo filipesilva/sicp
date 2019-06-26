@@ -325,3 +325,47 @@ const fullFermatTest = n => {
 // console.log(prime(2821));
 // console.log(fullFermatTest(6601));
 // console.log(prime(6601));
+
+// 1.28
+// Language notes: unsure how I feel about the "ternary" ladder. This will only get uglier with
+// more cases.
+const millerRabinFermatTest = (n, a) => {
+  const nontrivialSqrt = (x, m) => x == 1 ? false
+    : x == m - 1 ? false
+      : square(x) % m == 1 ? true
+        : false;
+  const maybeExitEarly = (x, m) => nontrivialSqrt(x, m) ? 0 : square(x) % m;
+  const mrExpmod = (base, exp, m) => exp == 0 ? 1
+    : even(exp) ? maybeExitEarly(mrExpmod(base, exp / 2, m))
+      : (base * mrExpmod(base, exp - 1, m)) % m;
+  return expmod(a, n - 1, n) == 1;
+}
+
+const randomMrFermatTest = n => millerRabinFermatTest(n, 1 + randInt(n - 1));
+const fullMrFermatTest = n => {
+  const helper = a => a == 0 ? true
+    : millerRabinFermatTest(n, a) ? helper(a - 1)
+      : false;
+  return helper(n - 1);
+}
+
+const comparePrimeResults = n => {
+  console.log();
+  console.log(n);
+  console.log(fullMrFermatTest(n));
+  console.log(fullFermatTest(n));
+  console.log(prime(n));
+}
+
+// console.log("known primes");
+// comparePrimeResults(13);
+// comparePrimeResults(1009);
+// comparePrimeResults(1013);
+// comparePrimeResults(1019);
+// console.log("known carmichael numbers");
+// comparePrimeResults(561);
+// comparePrimeResults(1105);
+// comparePrimeResults(1729);
+// comparePrimeResults(2465);
+// comparePrimeResults(2821);
+// comparePrimeResults(6601);

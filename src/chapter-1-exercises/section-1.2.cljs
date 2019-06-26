@@ -511,3 +511,57 @@
 ; (println (prime? 2821))
 ; (println (full-fermat-test 6601))
 ; (println (prime? 6601))
+
+; 1.28
+; Can confirm the miller-rabin variant works. 
+; Also found the exercise very hard to understand.
+
+; Separate the test itself from the random attempt, so we can do a random and a full version.
+(defn miller-rabin-fermat-test [n a]
+  (defn nontrivial-sqrt [x m]
+    (cond (= x 1) false
+          (= x (dec m)) false
+          (= (rem (square x) m) 1) true
+          :else false))
+  (defn maybe-exit-early [x m]
+    (if (nontrivial-sqrt x m)
+      ; Exit early by returning 0 directly. This will always fail the test.
+      0
+      (rem (square x) m)))
+  (defn mr-expmod [base exp m]
+    (cond (= exp 0) 1
+          (even? exp) (maybe-exit-early (mr-expmod base (/ exp 2) m) m)
+          :else  (rem (* base (mr-expmod base (- exp 1) m)) m)))
+  (= (mr-expmod a (dec n) n) 1))
+
+(defn random-mr-fermat-test [n]
+  (miller-rabin-fermat-test n (+ 1 (rand-int (- n 1)))))
+
+(defn full-mr-fermat-test [n]
+  (defn helper [a]
+    (cond (= a 0) true
+          (miller-rabin-fermat-test n a) (helper (dec a))
+          :else false))
+  (helper (dec n)))
+
+(defn compare-prime-results [n]
+  (println)
+  (println n)
+  (println (full-mr-fermat-test n))
+  (println (full-fermat-test n))
+  (println (prime? n)))
+
+
+; (println "known primes")
+; (compare-prime-results 13)
+; (compare-prime-results 1009)
+; (compare-prime-results 1013)
+; (compare-prime-results 1019)
+; (println)
+; (println "known carmichael numbers")
+; (compare-prime-results 561)
+; (compare-prime-results 1105)
+; (compare-prime-results 1729)
+; (compare-prime-results 2465)
+; (compare-prime-results 2821)
+; (compare-prime-results 6601)
