@@ -369,3 +369,42 @@ const comparePrimeResults = n => {
 // comparePrimeResults(2465);
 // comparePrimeResults(2821);
 // comparePrimeResults(6601);
+
+// 1.29
+// Language notes:
+// - in JS I already have to use a let-like construct (const) to define nested function defs.
+// - to do the same in js I needed more language constructs than in lisp.
+// - having addDx is worse than add-dx to describe an operation over dx. It also sucks to not be 
+// able to use ? in var names.
+// - I keep forgetting the semicolon, and it never makes any difference. It's just makes 
+// the code inconsistent.
+// - in JS I need to care about operator precedence, but in lisp I don't. JS is easier to compare
+// to mathematical notation though, but outside of that it's harder to reason about functions
+// as operations because they are represented differently than mathematical operators.
+// - the ternary ladder also makes it really hard to read conditions and results. I think I'm
+// done with it.
+const cube = x => x * x * x;
+const inc = x => x + 1;
+const sum = (term, a, next, b) => a > b ? 0 : term(a) + sum(term, next(a), next, b);
+const integral = (f, a, b, dx) => {
+  const addDx = x => x + dx;
+  return sum(f, a + dx / 2.0, addDx, b) * dx;
+}
+
+const simpsonIntegral = (f, a, b, n) => {
+  const helper = h => {
+    const y = k => f(a + k * h);
+    const term = k => k == 0 ? y(k)
+      : k == n ? y(k)
+        : even(k) ? 2 * y(k)
+          : 4 * y(k);
+
+    return (h / 3) * sum(term, 0, inc, n);
+  }
+  return helper((b - a) / n);
+}
+
+console.log(integral(cube, 0, 1, 0.01));
+console.log(integral(cube, 0, 1, 0.001));
+console.log(simpsonIntegral(cube, 0, 1, 100));
+console.log(simpsonIntegral(cube, 0, 1, 1000));

@@ -565,3 +565,40 @@
 ; (compare-prime-results 2465)
 ; (compare-prime-results 2821)
 ; (compare-prime-results 6601)
+
+; 1.29
+(defn cube [x]
+  (* x x x))
+
+(defn sum [term a next b]
+  (if (> a b)
+    0
+    (+ (term a)
+       (sum term (next a) next b))))
+
+(defn integral [f a b dx]
+  (defn add-dx [x] (+ x dx))
+  (* (sum f (+ a (/ dx 2.0)) add-dx b)
+     dx))
+
+; Language notes: 
+; - the right way to store the value of h here would be let, but we haven't
+; yet learned it in the book. Using a helper closure does the same thing.
+; - using let would also help reduce duplication of (y k).
+; - using or would be better than two cond cases. Or maybe it wouldn't really.
+(defn simpson-integral [f a b n]
+  (defn helper [h]
+    (defn y [k] (f (+ a (* k h))))
+    (defn term [k]
+      (cond (= k 0) (y k)
+            (= k n) (y k)
+            (even? k) (* 2 (y k))
+            :else (* 4 (y k))))
+    (* (/ h 3)
+       (sum term 0 inc n)))
+  (helper (/ (- b a) n)))
+
+(println (integral cube 0 1 0.01))
+(println (integral cube 0 1 0.001))
+(println (simpson-integral cube 0 1 100))
+(println (simpson-integral cube 0 1 1000))
