@@ -404,7 +404,22 @@ const simpsonIntegral = (f, a, b, n) => {
   return helper((b - a) / n);
 }
 
-console.log(integral(cube, 0, 1, 0.01));
-console.log(integral(cube, 0, 1, 0.001));
-console.log(simpsonIntegral(cube, 0, 1, 100));
-console.log(simpsonIntegral(cube, 0, 1, 1000));
+// console.log(integral(cube, 0, 1, 0.01));
+// console.log(integral(cube, 0, 1, 0.001));
+// console.log(simpsonIntegral(cube, 0, 1, 100));
+// console.log(simpsonIntegral(cube, 0, 1, 1000));
+
+// 1.30
+
+const sumIter = (term, a, next, b) => {
+  const iter = (a, result) => a > b ? result : iter(next(a), result + term(a));
+  return iter(a, 0);
+}
+
+const integralGivenSum = (f, a, b, dx, sum) => {
+  const addDx = x => x + dx;
+  return sum(f, a + dx / 2.0, addDx, b) * dx;
+}
+
+// console.log(integralGivenSum(cube, 0, 1, 0.01, sum));
+// console.log(integralGivenSum(cube, 0, 1, 0.01, sumIter));

@@ -598,7 +598,29 @@
        (sum term 0 inc n)))
   (helper (/ (- b a) n)))
 
-(println (integral cube 0 1 0.01))
-(println (integral cube 0 1 0.001))
-(println (simpson-integral cube 0 1 100))
-(println (simpson-integral cube 0 1 1000))
+; (println (integral cube 0 1 0.01))
+; (println (integral cube 0 1 0.001))
+; (println (simpson-integral cube 0 1 100))
+; (println (simpson-integral cube 0 1 1000))
+
+; 1.30
+
+; Language notes: In most Lisps, we would have inter instead of recur in the recursion call.
+; recur is a clojure special form to enable similar functionality to tail-call 
+; optimization (TCO) without TCO actually being supported in the host language.
+; Javascript does not have TCO but because of recur we can avoid Maximum call stack exceeded errors.
+; Chapter 1.2.1 (Linear recursion and Iteration) does a great job explaining what TCO is all about.
+(defn sum-iter [term a next b]
+  (defn iter [a result]
+    (if (> a b)
+      result
+      (recur (next a) (+ result (term a)))))
+  (iter a 0))
+
+(defn integral-given-sum [f a b dx sum]
+  (defn add-dx [x] (+ x dx))
+  (* (sum f (+ a (/ dx 2.0)) add-dx b)
+     dx))
+
+; (println (integral-given-sum cube 0 1 0.001 sum))
+; (println (integral-given-sum cube 0 1 0.001 sum-iter))
