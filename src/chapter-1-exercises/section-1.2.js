@@ -415,6 +415,19 @@ const sumIter = (term, a, next, b) => {
   const iter = (a, result) => a > b ? result : iter(next(a), result + term(a));
   return iter(a, 0);
 }
+// Language notes: in JS you have to use loops because there is no TCE. It's actually in ES6
+// but not supported by most JS engines: https://2ality.com/2015/06/tail-call-optimization.html
+// In general I'll keep using recursion because I wanted to compare how JS would look
+// like with Lisp idioms.
+const sumIterJs = (term, a, next, b) => {
+  let result = 0;
+  while (a <= b) {
+    result = result + term(a);
+    a = next(a);
+  }
+
+  return result;
+}
 
 const integralGivenSum = (f, a, b, dx, sum) => {
   const addDx = x => x + dx;
@@ -423,3 +436,22 @@ const integralGivenSum = (f, a, b, dx, sum) => {
 
 // console.log(integralGivenSum(cube, 0, 1, 0.01, sum));
 // console.log(integralGivenSum(cube, 0, 1, 0.01, sumIter));
+// console.log(integralGivenSum(cube, 0, 1, 0.01, sumIterJs));
+
+// 1.31
+
+const identity = x => x;
+
+const product = (term, a, next, b) => a > b ? 1 : term(a) * product(term, next(a), next, b);
+const productIter = (term, a, next, b) => {
+  const iter = (a, result) => a > b ? result : iter(next(a), result * term(a));
+  return iter(a, 1);
+}
+// Language notes: JS uses things inside parenthesis to represent parameters, so the parameter list
+// for a function is in parens. Lisp puts the function name as the operation in an s-expression,
+// like its showing how it should be used. Clojure has the arguments enclosed in vector and
+// separated from the function name.
+const factorialGivenProduct = (n, product) => product(identity, 1, inc, n);
+
+// console.log(factorialGivenProduct(5, product));
+// console.log(factorialGivenProduct(5, productIter));

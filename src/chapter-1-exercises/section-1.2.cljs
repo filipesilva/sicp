@@ -607,15 +607,15 @@
 
 ; Language notes: In most Lisps, we would have inter instead of recur in the recursion call.
 ; recur is a clojure special form to enable similar functionality to tail-call 
-; optimization (TCO) without TCO actually being supported in the host language.
-; Javascript does not have TCO but because of recur we can avoid Maximum call stack exceeded errors.
-; Chapter 1.2.1 (Linear recursion and Iteration) does a great job explaining what TCO is all about.
+; elimination (TCE) without TCE actually being supported in the host language.
+; Javascript does not have TCE but because of recur we can avoid Maximum call stack exceeded errors.
+; Chapter 1.2.1 (Linear recursion and Iteration) does a great job explaining what TCE is all about.
 (defn sum-iter [term a next b]
-  (defn iter [a result]
+  (defn sum-iter-helper [a result]
     (if (> a b)
       result
       (recur (next a) (+ result (term a)))))
-  (iter a 0))
+  (sum-iter-helper a 0))
 
 (defn integral-given-sum [f a b dx sum]
   (defn add-dx [x] (+ x dx))
@@ -624,3 +624,27 @@
 
 ; (println (integral-given-sum cube 0 1 0.001 sum))
 ; (println (integral-given-sum cube 0 1 0.001 sum-iter))
+
+; 1.31
+
+; No need to define it as its already in cljs.core. But this is what it would look like.
+; (defn identity [x] x)
+
+(defn product [term a next b]
+  (if (> a b)
+    1
+    (* (term a)
+       (product term (next a) next b))))
+
+(defn product-iter [term a next b]
+  (defn product-iter-helper [a result]
+    (if (> a b)
+      result
+      (recur (next a) (* result (term a)))))
+  (product-iter-helper a 1))
+
+(defn factorial-given-product [n product]
+  (product identity 1 inc n))
+
+; (println (factorial-given-product 5 product))
+; (println (factorial-given-product 5 product-iter))
