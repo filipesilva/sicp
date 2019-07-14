@@ -1,3 +1,5 @@
 node_modules
 out
-main.js
+.shadow-cljs
+.nrepl-port
+public

@@ -1,3 +1,6 @@
+(ns sicp.exercises.section_1_2
+  (:require [cljs.test :refer-macros [deftest is]]))
+
 ; 1.9
 (defn new+
   [a b]
@@ -5,7 +8,9 @@
     b
     (inc (new+ (dec a) b))))
 
-; (println (new+ 4 5))
+(deftest e-1-9-new+
+  (is (= (new+ 4 5) 9)))
+
 ; (+ 4 5)
 ; (inc (+ 3 5))
 ; (inc (inc (+ 2 5)))
@@ -24,7 +29,8 @@
     b
     (another-new+ (dec a) (inc b))))
 
-; (println (another-new+ 4 5))
+(deftest e-1-9-another-new+
+  (is (= (another-new+ 4 5) 9)))
 
 ; (+ 4 5)
 ; (+ 3 6)
@@ -46,23 +52,32 @@
         :else (A (- x 1)
                  (A x (- y 1)))))
 
-; (println (A 1 10))
-; (println (A 2 4))
-; (println (A 3 3))
+(deftest e-1-10-A
+  (is (= (A 2 4) 65536))
+  (is (= (A 3 3) 65536)))
 
 (defn k
   "Computes 5n^2"
   [n]
   (* 5 n n))
-; (println "k" (k 2))
 
-; (A 0 4) 
-; (* 2 4)
+(deftest e-1-10-k
+  (is (= (k 2) 20)))
+
+
 (defn f
   "Computes 2n"
   [n]
   (A 0 n))
-; (println "f" (f 1) (f 2) (f 3) (f 4) (f 5) (f 6) (f 7)) ; f 2 4 6 8 10 12 14
+
+(deftest e-1-10-f
+  (is (= (f 1) 2))
+  (is (= (f 2) 4))
+  (is (= (f 3) 6))
+  (is (= (f 4) 8))
+  (is (= (f 5) 10))
+  (is (= (f 6) 12))
+  (is (= (f 7) 14)))
 
 ; (A 1 4)
 ; (A 0 (A 1 3))
@@ -77,7 +92,15 @@
   Or: computes (2*)(repeat n times)1. e.g. (g 4) is 2*2*2*2*1."
   [n]
   (A 1 n))
-; (println "g" (g 1) (g 2) (g 3) (g 4) (g 5) (g 6) (g 7)) ; prints g 2 4 8 16 32 64 128
+
+(deftest e-1-10-g
+  (is (= (g 1) 2))
+  (is (= (g 2) 4))
+  (is (= (g 3) 8))
+  (is (= (g 4) 16))
+  (is (= (g 5) 32))
+  (is (= (g 6) 64))
+  (is (= (g 7) 128)))
 
 ; (A 2 4)
 ; (A 1 (A 2 3))
@@ -91,8 +114,12 @@
   "Computes (2^)(repeat n times)1. e.g. (h 4) is 2^2^2^2^1."
   [n]
   (A 2 n))
-; (println "h" (h 1) (h 2) (h 3) (h 4)) ; h 2 4 16 65536
 
+(deftest e-1-10-h
+  (is (= (h 1) 2))
+  (is (= (h 2) 4))
+  (is (= (h 3) 16))
+  (is (= (h 4) 65536)))
 
 ; 1.11
 
@@ -103,8 +130,6 @@
     (+ (fib-lookalike-recur (- n 1))
        (* 2 (fib-lookalike-recur (- n 2)))
        (* 3 (fib-lookalike-recur (- n 3))))))
-
-; (println (fib-lookalike-recur 10))
 
 (defn fib-lookalike-iter
   [n]
@@ -118,7 +143,9 @@
                                  (dec counter))))
   (fib-lookalike-iter-helper 2 1 0 (- n 2)))
 
-; (println (fib-lookalike-iter 10))
+(deftest e-1-11
+  (is (= (fib-lookalike-recur 10) 1892))
+  (is (= (fib-lookalike-iter 10) 1892)))
 
 ; 1.12
 (defn pascal-recur
@@ -133,12 +160,14 @@
         ; otherwise add the column-1 and column elements of the line above.
         :else (+ (pascal-recur (dec line) (dec column)) (pascal-recur (dec line) column))))
 
-; (println (pascal-recur 0 0))
-; (println (pascal-recur 1 0) (pascal-recur 1 1))
-; (println (pascal-recur 2 0) (pascal-recur 2 1) (pascal-recur 2 2))
-; (println (pascal-recur 3 0) (pascal-recur 3 1) (pascal-recur 3 2) (pascal-recur 3 3))
-; (println (pascal-recur 4 0) (pascal-recur 4 1) (pascal-recur 4 2) (pascal-recur 4 3)
-;          (pascal-recur 4 4))
+(deftest e-1-12
+  (is (= (pascal-recur 0 0) 1))
+  (is (= (pascal-recur 1 0) 1)) (is (= (pascal-recur 1 1) 1))
+  (is (= (pascal-recur 2 0) 1)) (is (= (pascal-recur 2 1) 2)) (is (= (pascal-recur 2 2) 1))
+  (is (= (pascal-recur 3 0) 1)) (is (= (pascal-recur 3 1) 3)) (is (= (pascal-recur 3 2) 3))
+  (is (= (pascal-recur 3 3) 1))
+  (is (= (pascal-recur 4 0) 1)) (is (= (pascal-recur 4 1) 4)) (is (= (pascal-recur 4 2) 6))
+  (is (= (pascal-recur 4 3) 4)) (is (= (pascal-recur 4 4) 1)))
 
 ; 1.13
 ; Fiddled around with this for a couple of hours. Went to check a couple of solutions,
@@ -164,16 +193,17 @@
         (even? n) (square (fast-expt b (/ n 2)))
         :else (* b (fast-expt b (- n 1)))))
 
-; (println "## fast-expt")
-; (println (fast-expt 2 1))
-; (println (fast-expt 2 2))
-; (println (fast-expt 2 3))
-; (println (fast-expt 2 4))
-; (println (fast-expt 2 5))
-; (println (fast-expt 2 8))
-; (println (fast-expt 2 10))
-; (println (fast-expt 2 16))
-; (println (fast-expt 2 20))
+(deftest e-1-16-fast-expt
+  (is (= (fast-expt 2 1) 2))
+  (is (= (fast-expt 2 2) 4))
+  (is (= (fast-expt 2 3) 8))
+  (is (= (fast-expt 2 4) 16))
+  (is (= (fast-expt 2 5) 32))
+  (is (= (fast-expt 2 8) 256))
+  (is (= (fast-expt 2 10) 1024))
+  (is (= (fast-expt 2 16) 65536))
+  (is (= (fast-expt 2 20) 1048576)))
+
 
 ; Found a solution, then went to compare it with others and found that mine would break down on 
 ; (f 2 5) and (f 2 10), and others. The solution below isn't my original one.
@@ -186,62 +216,61 @@
           :else (fast-expt-iter-helper (* a b) b (- n 1))))
   (fast-expt-iter-helper 1 b n))
 
+(deftest e-1-16-fast-expt-iter
+  (is (= (fast-expt-iter 2 1) 2))
+  (is (= (fast-expt-iter 2 2) 4))
+  (is (= (fast-expt-iter 2 3) 8))
+  (is (= (fast-expt-iter 2 4) 16))
+  (is (= (fast-expt-iter 2 5) 32))
+  (is (= (fast-expt-iter 2 8) 256))
+  (is (= (fast-expt-iter 2 10) 1024))
+  (is (= (fast-expt-iter 2 16) 65536))
+  (is (= (fast-expt-iter 2 20) 1048576)))
 
-; (println "## fast-expt-iter")
-; (println (fast-expt-iter 2 1))
-; (println (fast-expt-iter 2 2))
-; (println (fast-expt-iter 2 3))
-; (println (fast-expt-iter 2 4))
-; (println (fast-expt-iter 2 5))
-; (println (fast-expt-iter 2 8))
-; (println (fast-expt-iter 2 10))
-; (println (fast-expt-iter 2 16))
-; (println (fast-expt-iter 2 20))
 
 ; 1.17
 (defn halve [n] (/ n 2))
+(defn dbl [n] (* n 2))
 
 (defn fast-mult
   "Multiplication using log n steps, recursive."
   [b n]
   (cond (= 0 n) 0
-        (even? n) (double (fast-mult b (halve n)))
+        (even? n) (dbl (fast-mult b (halve n)))
         :else (+ b (fast-mult b (- n 1)))))
 
-; (println "## fast-mult")
-; (println (fast-mult 2 1))
-; (println (fast-mult 2 2))
-; (println (fast-mult 2 3))
-; (println (fast-mult 2 4))
-; (println (fast-mult 2 5))
-; (println (fast-mult 2 8))
-; (println (fast-mult 2 10))
-; (println (fast-mult 2 16))
-; (println (fast-mult 2 20))
+(deftest e-1-17
+  (is (= (fast-mult 2 1) 2))
+  (is (= (fast-mult 2 2) 4))
+  (is (= (fast-mult 2 3) 6))
+  (is (= (fast-mult 2 4) 8))
+  (is (= (fast-mult 2 5) 10))
+  (is (= (fast-mult 2 8) 16))
+  (is (= (fast-mult 2 10) 20))
+  (is (= (fast-mult 2 16) 32))
+  (is (= (fast-mult 2 20) 40)))
 
 ; 1.18
-(defn halve [n] (/ n 2))
 
 (defn fast-mult-iter
   "Exponentiation using log n steps, iterative."
   [b n]
   (defn fast-mult-iter-helper [a b n]
     (cond (= n 0) a
-          (even? n) (fast-mult-iter-helper a (double b) (halve n))
+          (even? n) (fast-mult-iter-helper a (dbl b) (halve n))
           :else (fast-mult-iter-helper (+ a b) b (- n 1))))
   (fast-mult-iter-helper 0 b n))
 
-
-; (println "## fast-mult-iter")
-; (println (fast-mult-iter 2 1))
-; (println (fast-mult-iter 2 2))
-; (println (fast-mult-iter 2 3))
-; (println (fast-mult-iter 2 4))
-; (println (fast-mult-iter 2 5))
-; (println (fast-mult-iter 2 8))
-; (println (fast-mult-iter 2 10))
-; (println (fast-mult-iter 2 16))
-; (println (fast-mult-iter 2 20))
+(deftest e-1-18
+  (is (= (fast-mult-iter 2 1) 2))
+  (is (= (fast-mult-iter 2 2) 4))
+  (is (= (fast-mult-iter 2 3) 6))
+  (is (= (fast-mult-iter 2 4) 8))
+  (is (= (fast-mult-iter 2 5) 10))
+  (is (= (fast-mult-iter 2 8) 16))
+  (is (= (fast-mult-iter 2 10) 20))
+  (is (= (fast-mult-iter 2 16) 32))
+  (is (= (fast-mult-iter 2 20) 40)))
 
 ; 1.19
 ; To solve (Tpq)^2 = T(p'q')
@@ -257,7 +286,6 @@
 ; p' = (p^2 + q^2)
 ; q' = (q^2 + 2qp)
 ; Note: looking more into this, it's called the Fibonnaci Q-matrix and uses linear algebra.
-(defn square [n] (* n n))
 
 (defn fib-iter [a b p q count]
   ; (println a b p q count)
@@ -276,17 +304,19 @@
 (defn fib [n]
   (fib-iter 1 0 0 1 n))
 
-; (println (fib 0))
-; (println (fib 1))
-; (println (fib 2))
-; (println (fib 3))
-; (println (fib 4))
-; (println (fib 5))
-; (println (fib 6))
-; (println (fib 7))
-; (println (fib 8))
-; (println (fib 9))
-; (println (fib 10))
+(deftest e-1-19
+  (is (= (fib 0) 0))
+  (is (= (fib 1) 1))
+  (is (= (fib 2) 1))
+  (is (= (fib 3) 2))
+  (is (= (fib 4) 3))
+  (is (= (fib 5) 5))
+  (is (= (fib 6) 8))
+  (is (= (fib 7) 13))
+  (is (= (fib 8) 21))
+  (is (= (fib 9) 34))
+  (is (= (fib 10) 55)))
+
 
 ; 1.20
 ; applicative order evaluation (rem is evaluated only on the tail call):
@@ -312,12 +342,10 @@
     a
     (gcd b (rem a b))))
 
-
-; (println (gcd 206 40))
+(deftest e-1-20
+  (is (= (gcd 206 40) 2)))
 
 ; 1.21
-
-(defn square [n] (* n n))
 
 (defn divides? [a b]
   (= (rem b a) 0))
@@ -330,9 +358,10 @@
 (defn smallest-divisor [n]
   (find-divisor n 2))
 
-; (println (smallest-divisor 199)) ; 199
-; (println (smallest-divisor 1999)) ; 1999
-; (println (smallest-divisor 19999)) ; 7
+(deftest e-1-21
+  (is (= (smallest-divisor 199) 199))
+  (is (= (smallest-divisor 1999) 1999))
+  (is (= (smallest-divisor 19999) 7)))
 
 ; 1.22
 ; Used 10000 as the smallest because computation is so fast that bigger numbers are necessary to
@@ -474,12 +503,13 @@
 (defn expmod-mod [base exp m]
   (rem (fast-expt base exp) m))
 
-; (println (expmod 10 10000 4))
-; (println (expmod-mod 10 10000 4))
-; (println (fast-expt 10 10000))
-; (println (fast-expt 10 10))
-; (println (fast-expt 10 100))
-; (println (fast-expt 10 1000))
+(deftest e-1-25
+  (is (= (expmod 10 10000 4) 0))
+  (is (js/isNaN (expmod-mod 10 10000 4)))
+  (is (= (fast-expt 10 10000) js/Infinity))
+  (is (= (fast-expt 10 10) 10000000000))
+  (is (= (fast-expt 10 100) 9.999999999999992e+99))
+  (is (= (fast-expt 10 1000) js/Infinity)))
 
 ; 1.26
 ; The purpose of halving the exponent followed by square the result in the even case was to
@@ -499,18 +529,19 @@
           :else false))
   (helper (dec n)))
 
-; (println (full-fermat-test 561))
-; (println (prime? 561))
-; (println (full-fermat-test 1105))
-; (println (prime? 1105))
-; (println (full-fermat-test 1729))
-; (println (prime? 1729))
-; (println (full-fermat-test 2465))
-; (println (prime? 2465))
-; (println (full-fermat-test 2821))
-; (println (prime? 2821))
-; (println (full-fermat-test 6601))
-; (println (prime? 6601))
+(deftest e-1-27
+  (is (= (full-fermat-test 561) true))
+  (is (= (prime? 561) false))
+  (is (= (full-fermat-test 1105) true))
+  (is (= (prime? 1105) false))
+  (is (= (full-fermat-test 1729) true))
+  (is (= (prime? 1729) false))
+  (is (= (full-fermat-test 2465) true))
+  (is (= (prime? 2465) false))
+  (is (= (full-fermat-test 2821) true))
+  (is (= (prime? 2821) false))
+  (is (thrown? js/RangeError (full-fermat-test 6601))) ; should be true, but busts the stack.
+  (is (= (prime? 6601) false)))
 
 ; 1.28
 ; Can confirm the miller-rabin variant works. 
@@ -538,33 +569,33 @@
   (miller-rabin-fermat-test n (+ 1 (rand-int (- n 1)))))
 
 (defn full-mr-fermat-test [n]
-  (defn helper [a]
-    (cond (= a 0) true
-          (miller-rabin-fermat-test n a) (helper (dec a))
-          :else false))
-  (helper (dec n)))
+  (letfn [(helper [a]
+            (cond (= a 0) true
+                  (miller-rabin-fermat-test n a) (helper (dec a))
+                  :else false))]
+    (helper (dec n))))
 
-(defn compare-prime-results [n]
-  (println)
-  (println n)
-  (println (full-mr-fermat-test n))
-  (println (full-fermat-test n))
-  (println (prime? n)))
+; Language notes: I tried adding a deftest inside this function but it doesn't work (e.g. 
+; a false assertion doesn't fail the test process).
+(defn compare-prime-results [n & {:keys [charmichaelNr?] :or {charmichaelNr? false}}]
+  "Compares the results of three prime checking functions, one of which is fooled by 
+  Charmichael numbers."
+  (and
+   ((if charmichaelNr? not identity) (full-mr-fermat-test n))
+   (full-fermat-test n)
+   ((if charmichaelNr? not identity) (prime? n))))
 
-
-; (println "known primes")
-; (compare-prime-results 13)
-; (compare-prime-results 1009)
-; (compare-prime-results 1013)
-; (compare-prime-results 1019)
-; (println)
-; (println "known carmichael numbers")
-; (compare-prime-results 561)
-; (compare-prime-results 1105)
-; (compare-prime-results 1729)
-; (compare-prime-results 2465)
-; (compare-prime-results 2821)
-; (compare-prime-results 6601)
+(deftest e-1-28
+  (is (compare-prime-results 13))
+  (is (compare-prime-results 1009))
+  (is (compare-prime-results 1013))
+  (is (compare-prime-results 1019))
+  (is (compare-prime-results 561 :charmichaelNr? true))
+  (is (compare-prime-results 1105 :charmichaelNr? true))
+  (is (compare-prime-results 1729 :charmichaelNr? true))
+  (is (compare-prime-results 2465 :charmichaelNr? true))
+  (is (compare-prime-results 2821 :charmichaelNr? true))
+  (is (thrown? js/RangeError (compare-prime-results 6601 :charmichaelNr? true))))
 
 ; 1.29
 (defn cube [x]
@@ -577,9 +608,9 @@
        (sum term (next a) next b))))
 
 (defn integral [f a b dx]
-  (defn add-dx [x] (+ x dx))
-  (* (sum f (+ a (/ dx 2.0)) add-dx b)
-     dx))
+  (letfn [(add-dx [x] (+ x dx))]
+    (* (sum f (+ a (/ dx 2.0)) add-dx b)
+       dx)))
 
 ; Language notes: 
 ; - the right way to store the value of h here would be let, but we haven't
@@ -587,29 +618,30 @@
 ; - using let would also help reduce duplication of (y k).
 ; - using or would be better than two cond cases. Or maybe it wouldn't really.
 (defn simpson-integral [f a b n]
-  (defn helper [h]
-    (defn y [k] (f (+ a (* k h))))
-    (defn term [k]
-      (cond (= k 0) (y k)
-            (= k n) (y k)
-            (even? k) (* 2 (y k))
-            :else (* 4 (y k))))
-    (* (/ h 3)
-       (sum term 0 inc n)))
-  (helper (/ (- b a) n)))
+  (letfn [(helper [h]
+            (letfn [(y [k] (f (+ a (* k h))))
+                    (term [k]
+                      (cond (= k 0) (y k)
+                            (= k n) (y k)
+                            (even? k) (* 2 (y k))
+                            :else (* 4 (y k))))]
+              (* (/ h 3)
+                 (sum term 0 inc n))))]
+    (helper (/ (- b a) n))))
 
-; (println (integral cube 0 1 0.01))
-; (println (integral cube 0 1 0.001))
-; (println (simpson-integral cube 0 1 100))
-; (println (simpson-integral cube 0 1 1000))
+(deftest e-1-29
+  (is (= (integral cube 0 1 0.01) 0.24998750000000042))
+  (is (= (integral cube 0 1 0.001) 0.249999875000001))
+  (is (= (simpson-integral cube 0 1 100) 0.24999999999999992))
+  (is (= (simpson-integral cube 0 1 1000) 0.2500000000000003)))
 
 ; 1.30
 
-; Language notes: In most Lisps, we would have inter instead of recur in the recursion call.
+; Language notes: In most Lisps, we would have iter instead of recur in the recursion call.
 ; recur is a clojure special form to enable similar functionality to tail-call 
 ; elimination (TCE) without TCE actually being supported in the host language.
 ; Javascript does not have TCE but because of recur we can avoid Maximum call stack exceeded errors.
-; Chapter 1.2.1 (Linear recursion and Iteration) does a great job explaining what TCE is all about.
+; Chapter 1.2.1 (Linear recursion and Iteration) does a great job explaining what TCE is all about. 
 (defn sum-iter [term a next b]
   (defn sum-iter-helper [a result]
     (if (> a b)
@@ -618,12 +650,13 @@
   (sum-iter-helper a 0))
 
 (defn integral-given-sum [f a b dx sum]
-  (defn add-dx [x] (+ x dx))
-  (* (sum f (+ a (/ dx 2.0)) add-dx b)
-     dx))
+  (letfn [(add-dx [x] (+ x dx))]
+    (* (sum f (+ a (/ dx 2.0)) add-dx b)
+       dx)))
 
-; (println (integral-given-sum cube 0 1 0.001 sum))
-; (println (integral-given-sum cube 0 1 0.001 sum-iter))
+(deftest e-1-30
+  (is (= (integral-given-sum cube 0 1 0.001 sum) 0.249999875000001))
+  (is (= (integral-given-sum cube 0 1 0.001 sum-iter) 0.24999987500000073)))
 
 ; 1.31
 
@@ -646,5 +679,6 @@
 (defn factorial-given-product [n product]
   (product identity 1 inc n))
 
-; (println (factorial-given-product 5 product))
-; (println (factorial-given-product 5 product-iter))
+(deftest e-1-31
+  (is (= (factorial-given-product 5 product) 120))
+  (is (=  (factorial-given-product 5 product-iter) 120)))

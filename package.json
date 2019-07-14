@@ -4,10 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "lumo": "lumo",
-    "build": "lumo -c src build.cljs"
+    "watch-cljs": "shadow-cljs watch sicp sicp-test",
+    "watch-js": "nodemon src/sicp/main.js"
   },
   "dependencies": {
-    "lumo-cljs": "1.10.1"
+    "nodemon": "1.19.1",
+    "shadow-cljs": "2.8.48"
   }
 }

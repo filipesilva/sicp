@@ -2,38 +2,39 @@
 
 This is my working environment for working through [Structure and Interpretation of Computer Programs](https://en.wikipedia.org/wiki/Structure_and_Interpretation_of_Computer_Programs) in ClojureScript and JavaScript (when possible).
 
-It uses [Lumo](https://github.com/anmonteiro/lumo) as the ClojureScript (CLJS) environment. Run a local version using `npx lumo` after `npm i`, or install it globally via `npm i -g lumo-cljs`. [NodeJS](https://nodejs.org/en/) is used for the JavaScript environment.
+## Installation
 
-Ways to run code:
+Install the [Shadow-CLJS requirements](https://github.com/thheller/shadow-cljs#requirements), [VS Code](https://code.visualstudio.com/), and the [Calva](https://github.com/BetterThanTomorrow/calva) VS Code plugin.
 
-- Running `lumo`/`node` with no arguments starts the REPL.
-- Add the `#!/usr/bin/env lumo` (or `node`) hashbang to a file to run it as an executable, which is the same as `lumo ./file.cljs`/`node ./file.js`.
-- Load a file into the CLJS REPL via `lumo -i ./file.cljs -r` or `(load-file "./file.js")` while running, also to reload a file. The Node REPL only allows `.load file.js` while running, but errors out with hashbangs.
-- Build the `./scratch.cljs` file into runnable JS with `lumo -c src build.cljs` or `npx build`.
-- Run files/snippets on VSCode using [vscode-code-runner](https://github.com/formulahendry/vscode-code-runner).
+Run `npm install`.
 
-CLJS resources:
 
-- docs: <http://clojuredocs.org/>, <https://clojure.org/reference/reader>
+## ClojureScript workflow
+
+Press `ctrl+shift+p` to open the command palette in VS Code and search for `Jack-in` and run it. Select the `sicp` and `sicp-test` builds, and press ok. Then select the `sicp` to connect to.
+
+A terminal will be opened that is running the CLJS tests in watch mode, together with a Calva REPL for CLJS. The Calva REPL will switch to the namespace of the currently open file. Run `node out/sicp.js` on a terminal to give the REPL an environment.
+
+While writing code you can use Calva commands in the command palette to evaluate the current form and print it inline or to the output panel. You can use [deftest](https://clojurescript.org/tools/testing) to add tests that will be ran on save.
+
+
+## JavaScript workflow
+
+Run `npm run watch-js` to run and watch `src/sicp/main.js`. Change the `require` calls in that file to change the tested files. You can write [assertions](https://nodejs.org/api/assert.html) which will be checked when the script runs.
+
+Run `node` to enter a node REPL, where you can use `.load file.js` to load a file. 
+
+You can also use [vscode-code-runner](https://github.com/formulahendry/vscode-code-runner) to run snippets on the terminal,although you'll need some extra config on windows (https://github.com/formulahendry/vscode-code-runner/issues/338#issuecomment-466659944).
+
+
+## CLJS resources:
+
+- docs: https://cljs.github.io/api/, <http://clojuredocs.org/>, <https://clojure.org/reference/reader>
 - reference: <https://devdocs.io/>
 - cheatsheet: <https://cljs.info/cheatsheet/>, <https://clojure.org/api/cheatsheet>
 - syntax: <https://clojure.org/guides/learn/syntax>, <https://github.com/shaunlebron/ClojureScript-Syntax-in-15-minutes>
 - JS interop: <https://github.com/anmonteiro/lumo/wiki/Invoke-node>, <https://lambdaisland.com/episodes/clojurescript-interop>
-- Lumo docs: <https://github.com/anmonteiro/lumo/wiki/Cli-options>
 - Style guide: <https://github.com/bbatsov/clojure-style-guide>
-
-## Windows
-
-To use hashbangs on Windows use [GitBash](https://git-scm.com/downloads) as your console.
-
-When using `vscode-code-runner`, use GitBash as the integrated terminal, configure the plugin to use the terminal, and the executor map below to run the snippet and immediately delete the temp file (details in <https://github.com/formulahendry/vscode-code-runner/issues/338#issuecomment-466659944>).
-
-```
-"code-runner.executorMap": {
-    "javascript": "node $fullFileName && rm -f $dirWithoutTrailingSlash\\\\tempCodeRunnerFile.js",
-    "typescript": "ts-node $fullFileName && rm -f $dirWithoutTrailingSlash\\\\tempCodeRunnerFile.cljs",
-    "clojure": "lumo $fullFileName && rm -f $dirWithoutTrailingSlash\\\\tempCodeRunnerFile.cljs",
-  },
-```
-
-Sometimes the REPL seems to crash after commands. This seemed to stop happening (https://github.com/anmonteiro/lumo/issues/266), then started again. Use WSL instead when that happens.
+- Shadow-CLJS: <https://github.com/anmonteiro/lumo/wiki/Cli-options>
+- Calva: <https://github.com/BetterThanTomorrow/calva>
+- Lumo: <https://github.com/anmonteiro/lumo>

@@ -1,3 +1,5 @@
+const { equal } = require('assert');
+
 // 1.9
 // Answers are the same as in the clojure version.
 // In JS we neither neither can redefine primitives like +, nor can + be a function name, so we
@@ -7,14 +9,14 @@ const newAdd = (a, b) =>
     ? b
     : newAdd(a - 1, b) + 1;
 
-// console.log(newAdd(4, 5));
+equal(newAdd(4, 5), 9);
 
 const anotherNewAdd = (a, b) =>
   a == 0
     ? b
     : anotherNewAdd(--a, ++b);
 
-// console.log(anotherNewAdd(4, 5));
+equal(anotherNewAdd(4, 5), 9);
 
 // 1.10
 // This is mostly a analysis question that isn't related to the language.
@@ -35,7 +37,7 @@ const fibLookalikeRecur = n =>
     ? n
     : fibLookalikeRecur(n - 1) + 2 * fibLookalikeRecur(n - 2) + 3 * fibLookalikeRecur(n - 3);
 
-// console.log(fibLookalikeRecur(10));
+equal(fibLookalikeRecur(10), 1892);
 
 const fibLookalikeIter = n => {
   const fibLookalikeIterHelper = (nMinus1, nMinus2, nMinus3, counter) =>
@@ -51,7 +53,7 @@ const fibLookalikeIter = n => {
   return fibLookalikeIterHelper(2, 1, 0, n - 2);
 }
 
-// console.log(fibLookalikeIter(10));
+equal(fibLookalikeIter(10), 1892);
 
 // 1.12
 const pascalRecur = (line, column) => {
@@ -72,6 +74,12 @@ const pascalRecur = (line, column) => {
 // console.log(pascalRecur(3, 0), pascalRecur(3, 1), pascalRecur(3, 2), pascalRecur(3, 3));
 // console.log(pascalRecur(4, 0), pascalRecur(4, 1), pascalRecur(4, 2), pascalRecur(4, 3),
 //   pascalRecur(4, 4));
+// -->
+// 1
+// 1 1
+// 1 2 1
+// 1 3 3 1
+// 1 4 6 4 1
 
 // 1.13
 // Math proof, see clojure version.
@@ -96,16 +104,15 @@ const fastExpt = (b, n) => {
   }
 }
 
-// console.log('## fastExpt');
-// console.log(fastExpt(2, 1));
-// console.log(fastExpt(2, 2));
-// console.log(fastExpt(2, 3));
-// console.log(fastExpt(2, 4));
-// console.log(fastExpt(2, 5));
-// console.log(fastExpt(2, 8));
-// console.log(fastExpt(2, 10));
-// console.log(fastExpt(2, 16));
-// console.log(fastExpt(2, 20));
+equal(fastExpt(2, 1), 2);
+equal(fastExpt(2, 2), 4);
+equal(fastExpt(2, 3), 8);
+equal(fastExpt(2, 4), 16);
+equal(fastExpt(2, 5), 32);
+equal(fastExpt(2, 8), 256);
+equal(fastExpt(2, 10), 1024);
+equal(fastExpt(2, 16), 65536);
+equal(fastExpt(2, 20), 1048576);
 
 const fastExptIter = (b, n) => {
   const fastExptIterHelper = (a, b, n) => {
@@ -121,16 +128,15 @@ const fastExptIter = (b, n) => {
   return fastExptIterHelper(1, b, n);
 }
 
-// console.log('## fastExptIter');
-// console.log(fastExptIter(2, 1));
-// console.log(fastExptIter(2, 2));
-// console.log(fastExptIter(2, 3));
-// console.log(fastExptIter(2, 4));
-// console.log(fastExptIter(2, 5));
-// console.log(fastExptIter(2, 8));
-// console.log(fastExptIter(2, 10));
-// console.log(fastExptIter(2, 16));
-// console.log(fastExptIter(2, 20));
+equal(fastExptIter(2, 1), 2);
+equal(fastExptIter(2, 2), 4);
+equal(fastExptIter(2, 3), 8);
+equal(fastExptIter(2, 4), 16);
+equal(fastExptIter(2, 5), 32);
+equal(fastExptIter(2, 8), 256);
+equal(fastExptIter(2, 10), 1024);
+equal(fastExptIter(2, 16), 65536);
+equal(fastExptIter(2, 20), 1048576);
 
 // 1.17 and 1.18
 // These two are the same as 1.16, but replacing `square` with `double`, and the
@@ -163,22 +169,22 @@ const fibIter = (a, b, p, q, n) => {
 
 const fib = n => fibIter(1, 0, 0, 1, n);
 
-// console.log(fib(0));
-// console.log(fib(1));
-// console.log(fib(2));
-// console.log(fib(3));
-// console.log(fib(4));
-// console.log(fib(5));
-// console.log(fib(6));
-// console.log(fib(7));
-// console.log(fib(8));
-// console.log(fib(9));
-// console.log(fib(10));
+equal(fib(0), 0);
+equal(fib(1), 1);
+equal(fib(2), 1);
+equal(fib(3), 2);
+equal(fib(4), 3);
+equal(fib(5), 5);
+equal(fib(6), 8);
+equal(fib(7), 13);
+equal(fib(8), 21);
+equal(fib(9), 34);
+equal(fib(10), 55);
 
 // 1.20
 const gcd = (a, b) => b == 0 ? a : gcd(b, a % b);
 
-// console.log(gcd(206, 40));
+equal(gcd(206, 40), 2);
 
 // 1.21
 const divides = (a, b) => b % a == 0;
@@ -187,9 +193,9 @@ const findDivisor = (n, testDivisor) => square(testDivisor) > n ? n :
 
 const smallestDivisor = n => findDivisor(n, 2);
 
-// console.log(smallestDivisor(199));
-// console.log(smallestDivisor(1999));
-// console.log(smallestDivisor(19999));
+equal(smallestDivisor(199), 199);
+equal(smallestDivisor(1999), 1999);
+equal(smallestDivisor(19999), 7);
 
 // 1.22
 // The timing data does not confirm the premise that each 10x increase in number size results in a
@@ -233,7 +239,7 @@ const searchForPrimes = n => {
 // Saw ratios between 8x and 1.5x (prime/notSoFastPrime). notSoFastPrime is faster.
 
 const reportPrimeWithFn = (n, primeFn) => time(() => primeFn(n));
-const testKnownPrimes = primeFn => {
+const timeKnownPrimes = primeFn => {
   reportPrimeWithFn(10007, primeFn);
   reportPrimeWithFn(10009, primeFn);
   reportPrimeWithFn(10037, primeFn);
@@ -256,9 +262,9 @@ const fastSmallestDivisor = n => fastFindDivisor(n, 2);
 const notSoFastPrime = n => n == fastSmallestDivisor(n);
 
 // console.log('prime');
-// testKnownPrimes(prime);
+// timeKnownPrimes(prime);
 // console.log('notSoFastPrime');
-// testKnownPrimes(notSoFastPrime);
+// timeKnownPrimes(notSoFastPrime);
 
 // 1.24
 // Similar results as the CLJS version. Can't calculate the constant well, but it takes way
@@ -288,7 +294,7 @@ const fastPrime = (n, times) => times == 0 ? true
 const fastPrime5Iter = n => fastPrime(n, 5);
 
 // console.log('fastPrime5Iter');
-// testKnownPrimes(fastPrime5Iter);
+// timeKnownPrimes(fastPrime5Iter);
 
 // 1.25
 // See CLJS version for answer.
@@ -313,18 +319,18 @@ const fullFermatTest = n => {
   return helper(n - 1);
 }
 
-// console.log(fullFermatTest(561));
-// console.log(prime(561));
-// console.log(fullFermatTest(1105));
-// console.log(prime(1105));
-// console.log(fullFermatTest(1729));
-// console.log(prime(1729));
-// console.log(fullFermatTest(2465));
-// console.log(prime(2465));
-// console.log(fullFermatTest(2821));
-// console.log(prime(2821));
-// console.log(fullFermatTest(6601));
-// console.log(prime(6601));
+equal(fullFermatTest(561), true);
+equal(prime(561), false);
+equal(fullFermatTest(1105), true);
+equal(prime(1105), false);
+equal(fullFermatTest(1729), true);
+equal(prime(1729), false);
+equal(fullFermatTest(2465), true);
+equal(prime(2465), false);
+equal(fullFermatTest(2821), true);
+equal(prime(2821), false);
+equal(fullFermatTest(6601), true);
+equal(prime(6601), false);
 
 // 1.28
 // Language notes: unsure how I feel about the "ternary" ladder. This will only get uglier with
@@ -349,26 +355,24 @@ const fullMrFermatTest = n => {
   return helper(n - 1);
 }
 
-const comparePrimeResults = n => {
-  console.log();
-  console.log(n);
-  console.log(fullMrFermatTest(n));
-  console.log(fullFermatTest(n));
-  console.log(prime(n));
+const comparePrimeResults = (n, charmichaelNr = false) => {
+  equal(fullMrFermatTest(n), !charmichaelNr);
+  equal(fullFermatTest(n), true);
+  equal(prime(n), !charmichaelNr);
 }
 
-// console.log("known primes");
-// comparePrimeResults(13);
-// comparePrimeResults(1009);
-// comparePrimeResults(1013);
-// comparePrimeResults(1019);
-// console.log("known carmichael numbers");
-// comparePrimeResults(561);
-// comparePrimeResults(1105);
-// comparePrimeResults(1729);
-// comparePrimeResults(2465);
-// comparePrimeResults(2821);
-// comparePrimeResults(6601);
+// known primes
+comparePrimeResults(13);
+comparePrimeResults(1009);
+comparePrimeResults(1013);
+comparePrimeResults(1019);
+// known carmichael numbers
+comparePrimeResults(561, true);
+comparePrimeResults(1105, true);
+comparePrimeResults(1729, true);
+comparePrimeResults(2465, true);
+comparePrimeResults(2821, true);
+comparePrimeResults(6601, true);
 
 // 1.29
 // Language notes:
@@ -404,10 +408,10 @@ const simpsonIntegral = (f, a, b, n) => {
   return helper((b - a) / n);
 }
 
-// console.log(integral(cube, 0, 1, 0.01));
-// console.log(integral(cube, 0, 1, 0.001));
-// console.log(simpsonIntegral(cube, 0, 1, 100));
-// console.log(simpsonIntegral(cube, 0, 1, 1000));
+equal(integral(cube, 0, 1, 0.01), 0.24998750000000042);
+equal(integral(cube, 0, 1, 0.001), 0.249999875000001);
+equal(simpsonIntegral(cube, 0, 1, 100), 0.24999999999999992);
+equal(simpsonIntegral(cube, 0, 1, 1000), 0.2500000000000003);
 
 // 1.30
 
@@ -434,9 +438,9 @@ const integralGivenSum = (f, a, b, dx, sum) => {
   return sum(f, a + dx / 2.0, addDx, b) * dx;
 }
 
-// console.log(integralGivenSum(cube, 0, 1, 0.01, sum));
-// console.log(integralGivenSum(cube, 0, 1, 0.01, sumIter));
-// console.log(integralGivenSum(cube, 0, 1, 0.01, sumIterJs));
+equal(integralGivenSum(cube, 0, 1, 0.01, sum), 0.24998750000000042);
+equal(integralGivenSum(cube, 0, 1, 0.01, sumIter), 0.24998750000000042);
+equal(integralGivenSum(cube, 0, 1, 0.01, sumIterJs), 0.24998750000000042);
 
 // 1.31
 
@@ -453,5 +457,5 @@ const productIter = (term, a, next, b) => {
 // separated from the function name.
 const factorialGivenProduct = (n, product) => product(identity, 1, inc, n);
 
-// console.log(factorialGivenProduct(5, product));
-// console.log(factorialGivenProduct(5, productIter));
+equal(factorialGivenProduct(5, product), 120);
+equal(factorialGivenProduct(5, productIter), 120);

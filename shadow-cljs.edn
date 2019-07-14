@@ -1,0 +1,21 @@
+;; shadow-cljs configuration
+{:source-paths
+ ["src"]
+
+ :dependencies
+ []
+
+ :nrepl {:port 3333 :write-port-file true}
+
+ :builds
+ {:sicp-test
+  {:target :node-test
+   :output-to "out/sicp-test.js"
+   :ns-regexp "^sicp.exercises.*"
+   :autorun true}
+  :sicp
+  {:target :node-script
+   :output-to "out/sicp.js"
+   :main sicp.main/init
+   :devtools {:autoload true}}}}
+
